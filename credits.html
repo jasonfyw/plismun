@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <link rel="shortcut icon" type="image/x-icon" href="img/plismun19_a_favicon.png">
+
+        <title>Credits – PLISMUN 2020</title>
+
+        <!-- Bootstrap Core CSS -->
+
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+        <!-- Fonts -->
+        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="css/animate.css" rel="stylesheet" />
+        <!-- css -->
+        <link href="css/pages/credits.css" rel="stylesheet">
+        <link href="color/default.css" rel="stylesheet">
+
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120398250-1"></script>
+        <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'UA-120398250-1');
+        </script>
+
+
+    </head>
+
+    <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+
+
+        <!-- Preloader -->
+        <div id="preloader">
+            <div id="load"><img class="wow fadeInDown" src="img/plismun19_a_notext.png"></div>
+        </div>
+
+
+
+
+
+
+        <!-- navbar, inserted via js -->
+        <div id="header"></div>
+
+
+
+
+        <!-- intro -->
+
+        <section id="intro" class="intro parallax-window" data-parallax="scroll" data-image-src="img/school_img2.jpg">
+            <div class="slogan">
+                <h2>Website credits</h2>
+            </div>
+        </section>
+
+        <!--intro-->
+
+
+        <!-- content -->
+        <section id="main" class="home-section">
+
+            <div class="content container">
+                <div class="heading-about">
+                    <div class="container row wow fadeInDown" data-wow-delay="0s">
+                        <div class="section-heading">
+                            <div class="row">
+                                <div class="col-sm-6 position-label">
+                                    <p id="coder-title-outer1" style="display: inline;">Website architect an</p>
+                                    <p id="coder-title" style="display: inline;">d</p>
+                                    <p id="coder-title-outer2" style="display: inline;"> programmer:</p>
+                                </div>
+                                <div class="col-sm-6 abcdef">
+                                     <p>Jason Wang</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 position-label">
+                                    <p>Team photos:</p>
+                                </div>
+                                <div class="col-sm-6 abcdef">
+                                     <p>Selina Huang</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 position-label">
+                                    <p>Park Lane photos: </p>
+                                </div>
+                                <div class="col-sm-6 abcdef">
+                                     <p>Park Lane and Barbora Zarubova</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 position-label">
+                                    <p>Prague photos: </p>
+                                </div>
+                                <div class="col-sm-6 abcdef">
+                                     <p>Danil and Oleg Reshtovanyuk</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+        </section>
+
+        <!-- /content -->
+
+
+
+
+
+        <!-- footer-->
+        <div id="footer"></div>
+        <!-- /footer -->
+
+
+
+        <!-- Core JavaScript Files -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.scrollTo.js"></script>
+        <!--reveal while scrolling script-->
+        <script src="js/wow.min.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="js/custom.js"></script>
+        <!-- parallax script -->
+        <script src="js/parallax.min.js"></script>
+
+        <script type="text/javascript">
+            // include footer
+            $(function() {
+                $("#header").load("navbar");
+                $("#footer").load("footer.html");
+            });
+
+            $(document).ready(function() {
+                $("#coder-title").hover(function() {
+                    $("#coder-title-outer1").hide();
+                    $("#coder-title-outer2").hide();
+                    $("#coder-title").text('Executive Commanding Directorial Chief and Imperial Supreme Overlord Grand-Architect of Published Digital Content Relating to the Publically Available Online Network for the Universal Information Distribution and Exhaustive Administrative Duties of Non-Malicious Data Collection of Delegates and Alternative Individuals Partaking in and Aiding in the Management of Park Lane Model United Nations Conference and Principal Acting Arch-Overseer of Data Management, Security, Continued Integrity and Distribution to the Appropriate Departments – Destroyer of Worlds: ');
+                    },
+                function() {
+                    $("#coder-title-outer1").show();
+                    $("#coder-title-outer2").show();
+                    $("#coder-title").text('d');
+                });
+            });
+        </script>
+
+</html>
