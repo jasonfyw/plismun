@@ -8,7 +8,7 @@
 
         <link rel="shortcut icon" type="image/x-icon" href="img/plismun19_a_favicon.png">
 
-        <title>Delegate Application – PLISMUN 2020</title>
+        <title>Delegate Application – PLISMUN 2021</title>
 
         <!-- Bootstrap Core CSS -->
 
@@ -1043,7 +1043,7 @@
 
                             <div class="row">
                                 <div class="col-sm-10 col-sm-offset-1 row">
-                                    <label class="control-label col-sm-3" for="motivation">Why do you want to participate as a delegate at PLISMUN20? (~100 words)</label>
+                                    <label class="control-label col-sm-3" for="motivation">Why do you want to participate as a delegate at PLISMUN21? (~100 words)</label>
                                     <div class="col-sm-9">
                                         <textarea type="text" class="form-control" id="motivation" name="motivation" rows="5"><?php echo $motivation; ?></textarea>
                                         <?php echo "<p class='text-danger'>$errMotivation</p>";?>

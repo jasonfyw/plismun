@@ -9,7 +9,7 @@
 
         <link rel="shortcut icon" type="image/x-icon" href="img/plismun19_a_favicon.png">
 
-        <title>Manage Committee – PLISMUN20</title>
+        <title>Manage Committee – PLISMUN21</title>
 
         <!-- Bootstrap Core CSS -->
 

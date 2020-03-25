@@ -8,7 +8,7 @@
 
         <link rel="shortcut icon" type="image/x-icon" href="img/plismun19_a_favicon.png">
 
-        <title>Chair Application – PLISMUN 2020</title>
+        <title>Chair Application – PLISMUN 2021</title>
 
         <!-- Bootstrap Core CSS -->
 
@@ -243,7 +243,7 @@
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-4">
                                 <?php echo $applyResult ?>
-                                <div class="alert alert-info">PLISMUN20 Theme: <b>Securing Justice</b></div>
+                                <div class="alert alert-info">PLISMUN21 Theme: <b>Securing Justice</b></div>
                             </div>
                         </div>
 

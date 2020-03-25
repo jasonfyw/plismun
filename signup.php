@@ -8,7 +8,7 @@
 
         <link rel="shortcut icon" type="image/x-icon" href="img/plismun19_a_favicon.png">
 
-        <title>Sign Up – PLISMUN 2020</title>
+        <title>Sign Up – PLISMUN </title>
 
         <!-- Bootstrap Core CSS -->
 
