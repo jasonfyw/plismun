@@ -78,8 +78,8 @@
                             </ul>
                         </li>
                         <li><a href="https://drive.google.com/drive/u/3/folders/1QyB6VypqcuFHZCqpKik3SXAte-V1Ngh7">Photos</a></li>
-                        <li><a href="schedule">Schedule</a></li>
-                        <li><a href="committees">Committees</a></li>
+                        <!-- <li><a href="schedule">Schedule</a></li> -->
+                        <!-- <li><a href="committees">Committees</a></li> -->
                         <li><a href="contact">Contact</a></li>
 
 
