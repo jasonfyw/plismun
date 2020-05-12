@@ -85,7 +85,7 @@
 
             $mail->MsgHTML($body);
 
-            $address = 'plismun.official@gmail.com';
+            $address = 'secretariat@plismun.com';
             $mail->AddAddress($address);
             $address2 = 'pupil.jason.wang@parklane-is.com';
             $mail->AddAddress($address2);
@@ -161,8 +161,8 @@
                 <div class="wow fadeInDown" data-wow-delay="0s">
                     <div class="row container contactbuttons">
                         <div class="col-sm-3">
-                            <p><a href="mailto:plismun.official@gmail.com" class="fa fa-envelope-o fa-large"></a></p>
-                            <p><b><a href="mailto:plismun.official@gmail.com">plismun.official@gmail.com</a></b></p>
+                            <p><a href="mailto:secretariat@plismun.com" class="fa fa-envelope-o fa-large"></a></p>
+                            <p><b><a href="mailto:secretariat@plismun.com">secretariat@plismun.com</a></b></p>
                         </div>
                         <div class="col-sm-3">
                             <p><a href="https://www.facebook.com/Park-Lane-International-School-MUN-211767739632155/" class="fa fa-facebook fa-large"></a></p>
