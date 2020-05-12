@@ -274,47 +274,7 @@ a:focus {
 }
 
 
-/* ===========================
---- UN logo preloader
-============================ */
 
-#preloader {
-    background-color: #ffffff;
-    bottom: 0;
-    height: 100%;
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: 100%;
-    z-index: 99999;
-    text-align: center;
-}
-
-
-#load {
-/*    background-color: aquamarine;*/
-	z-index: 99999;
-    width: auto;
-    height: auto;
-    position: relative;
-    top: 20%;
-    border-radius: 0px;
-    width: 100%
-}
-
-@media (min-width: 1080px) {
-    #load img {
-        height: 500px;
-        width: 500px;
-    }
-}
-@media (max-width: 700px) {
-    #load img {
-        height: 300px;
-        width: 300px;
-    }
-}
 
 
 

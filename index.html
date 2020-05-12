@@ -40,9 +40,7 @@
 
     <body id="page-top" data-spy="scroll" data-target=".navbar-custom" width="100%">
         <!-- Preloader -->
-        <div id="preloader">
-            <div id="load"><img class="wow fadeInDown" src="img/plismun19_a_notext.png" alt="PLISMUN"></div>
-        </div>
+        <div id="preloader-overlay"></div>
 
 
 
@@ -450,6 +448,7 @@
             $(function() {
                 $("#header").load("navbar");
                 $("#footer").load("footer");
+                $("#preloader-overlay").load("preloader");
             });
         </script>
 

@@ -221,34 +221,7 @@
             }
 
 
-            /* ===========================
-            --- UN logo preloader
-            ============================ */
-
-            #preloader {
-                background-color: #ffffff;
-                bottom: 0;
-                height: 100%;
-                left: 0;
-                position: fixed;
-                right: 0;
-                top: 0;
-                width: 100%;
-                z-index: 99999;
-                text-align: center;
-            }
-
-
-            #load {
-            /*    background-color: aquamarine;*/
-                z-index: 99999;
-                width: auto;
-                height: auto;
-                position: relative;
-                top: 20%;
-                border-radius: 0px;
-            }
-
+           
 
 
 
@@ -778,9 +751,7 @@
 
     <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
         <!-- Preloader -->
-        <div id="preloader">
-            <div id="load"><img class="wow fadeInDown" src="img/plismun19_a_notext.png" height="500px" width="500px"></div>
-        </div>
+        <div id="preloader-overlay"></div>
 
 
 
@@ -823,6 +794,7 @@
             $(function() {
                 $("#header").load("navbar");
                 $("#footer").load("footer.html");
+                $("#preloader-overlay").load("preloader");
             });
         </script>
 

@@ -31,9 +31,7 @@
         
         
         <!-- Preloader -->
-        <div id="preloader">
-            <div id="load"><img class="wow fadeInDown" src="img/plismun19_a_notext.png" height="300px" width="300px"></div>
-        </div>
+        <div id="preloader-overlay"></div>
         
         
         
@@ -102,6 +100,7 @@
             // include footer
             $(function() {
                 $("#footer").load("footer");
+                $("#preloader-overlay").load("preloader");
             });
         </script>
 

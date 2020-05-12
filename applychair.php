@@ -214,9 +214,7 @@
 
 
         <!-- Preloader -->
-        <div id="preloader">
-            <div id="load"><img class="wow fadeInDown" src="img/plismun19_a_notext.png"></div>
-        </div>
+        <div id="preloader-overlay"></div>
 
 
 
@@ -712,6 +710,7 @@
             $(function() {
                 $("#header").load("navbar");
                 $("#footer").load("footer");
+                $("#preloader-overlay").load("preloader");
             });
 
             $('.datepicker').datepicker();

@@ -205,13 +205,6 @@
         ?>
 
 
-        <!-- Preloader -->
-        <div id="preloader">
-            <div id="load"><img class="wow fadeInDown" src="img/plismun19_a_notext.png"></div>
-        </div>
-
-
-
 
 
         <?php
