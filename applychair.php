@@ -50,6 +50,7 @@
 
         session_start();
         require_once('config.php');
+        require_once('class.phpmailer.php');
 
         if (isset($_POST["submit"])) {
             $email = $_SESSION['id'];
@@ -102,18 +103,18 @@
             if(!$_POST['committee1']) {
                 $errCommittee1 = 'Please select a committee';
             }
-            if(!$_POST['suggestion1']) {
-                $errSuggestion1 = 'Please enter a topic suggestion';
-            }
+            // if(!$_POST['suggestion1']) {
+            //     $errSuggestion1 = 'Please enter a topic suggestion';
+            // }
             // if(!$_POST['position2']) {
             //     $errPosition2 = 'Please select a position';
             // }
             if(!$_POST['committee2']) {
                 $errCommittee2 = 'Please select a committee';
             }
-            if(!$_POST['suggestion2']) {
-                $errSuggestion1 = 'Please enter a topic suggestion';
-            }
+            // if(!$_POST['suggestion2']) {
+            //     $errSuggestion1 = 'Please enter a topic suggestion';
+            // }
             // if(!$_POST['position3']) {
             //     $errPosition3 = 'Please select a position';
             // }
@@ -146,11 +147,11 @@
                 //convert birthdate to compatible format
                 $birthdate_insert = date('Y-m-d', strtotime(str_replace('/', '-', $birthdate)));
 
-                // email
-                // subject title
-                $subject = 'PLISMUN20 Chair application from '.$_SESSION['firstname']. ' '.$_SESSION['lastname'];
+                $mail = new PHPMailer();
+
+                // PHPMailer email
                 // html body
-                $message =
+                $body =
                     "<h2>Chair application</h2>
                     <p><b>Name:</b> ".$_SESSION['firstname']. ' '.$_SESSION['lastname']."</p>
                     <p><b>Email:</b> ".$_SESSION['id']."</p>
@@ -160,28 +161,30 @@
                     <p><b>Gender: </b> $gender</p>
                     <p><b>School (if applicable): </b> $school</p>
                     <p><b>Dietary prefs.: </b> $diet</p>
-                    <br><br>
-                    <p><b>Position choice 1: </b> $position1</p>
+                    <br>
                     <p><b>Committee choice 1: </b> $committee1</p>
-                    <p><b>Suggestion for topic: </b> $suggestion1</p>
-                    <br />
-                    <p><b>Position choice 2: </b> $position2</p>
                     <p><b>Committee choice 2: </b> $committee2</p>
-                    <p><b>Suggestion for topic: </b> $suggestion2</p>
-                    <br />
-                    <p><b>Position choice 3: </b> $position3</p>
                     <p><b>Committee choice 3: </b> $committee3</p>
-                    <p><b>Suggestion for topic: </b> $suggestion3</p>
-                    <br><br>
                     <p><b>MUN experience: </b> $experience</p>
                     <br>
                     <p><b>Motivation letter: </b> $motivation</p>";
-                // set content-type header for sending html email
-                $headers = "MIME-Version: 1.0" . "\r\n";
-                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-                // additional headers
-                $headers .= 'From: plismun-chair-applications' . "\r\n";
+                $mail->IsSMTP(); // telling the class to use SMTP
+                $mail->SMTPAuth = true;                  // enable SMTP authentication
+                $mail->Host = "smtp.hostinger.com"; // sets the SMTP server
+                $mail->Port = 587;
+
+                $mail->Username = "info@plismun.com"; // SMTP account username
+                $mail->Password = "plismun123";        // SMTP account password
+
+                $mail->SetFrom('info@plismun.com', 'PLISMUN21 Applications');
+                // $mail->AddReplyTo("name@yourdomain.com","First Last");
+                $mail->Subject = 'Chair application from '.$_SESSION['firstname']. ' '.$_SESSION['lastname'];
+                $mail->MsgHTML($body);
+                $address = 'dev@plismun.com';
+                $mail->AddAddress($address);
+                $address2 = 'pupil.jason.wang@parklane-is.com';
+                $mail->AddAddress($address2);
 
 
 
@@ -193,19 +196,13 @@
                 $result2 = mysqli_query($link, $query2);
 
                 if ($result1 && $result2) {
-                    if (mail ('plismun.communication@gmail.com', $subject, $message, $headers)) {
-                        if (mail ('plismun.official@gmail.com', $subject, $message, $headers)) {
-                            $applyResult = '<div class="alert alert-success">Your chair application has been successfully submitted. You will receive an email in the following weeks with a response.</div>';
-
-
-                        } else {
-                            $applyResult = '<div class="alert alert-danger">There was an error while submitting your chair application. Please try again</div>';
-                        }
+                    if (!$mail->Send()) {
+                        $applyResult='<div class="alert alert-danger">There was an error while submitting your chair application. Please try again</div>';
                     } else {
-                        $applyResult = '<div class="alert alert-danger">There was an error while submitting your chair application. Please try again</div>';
+                        $applyResult='<div class="alert alert-success">Your chair application has been successfully submitted. You will receive an email in the following weeks with a response.</div>';
                     }
                 } else {
-                    $signupresult = '<div class="alert alert-danger">Sorry, an error occurred while sumbitting your application Please try again</div>';
+                    $applyResult = '<div class="alert alert-danger">There was an error while submitting your chair application. Please try again</div>';
                 }
 
             }
@@ -231,7 +228,6 @@
             <div class="apply parallax-window" data-parallax="scroll" data-image-src="img/school_img2.jpg">
                 <div class="containers">
                     <!-- <div class="alert alert-danger col-md-5 col-md-offset-5">NOTICE: chairing applications have been filled and no vacancies are currently available</div> -->
-                    <!-- <div class="alert alert-info col-md-5 col-md-offset-5">PLISMUN20 Theme: <b>Implementing Legal Justice and Reducing Discrimination</b></div> -->
 
 
                 </div>
@@ -241,16 +237,16 @@
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-4">
                                 <?php echo $applyResult ?>
-                                <div class="alert alert-info">PLISMUN21 Theme: <b>Securing Justice</b></div>
+                                <div class="alert alert-info">PLISMUN21 Theme: <b>Achieving Equality</b></div>
                             </div>
                         </div>
 
                         <form id="applychair" class="form-horizontal" method="post" action="applychair">
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <div class="col-md-4 col-md-offset-4">
                                     <?php echo $signupresult ?>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="row">
 
@@ -552,71 +548,55 @@
 
 
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-4" for="committee1">Committee choice 1: </label>
-                                        <div class="col-md-8">
-                                            <select class="selectpicker" name="committee1" title="Select a committee">
-                                                <option value="icj" <?php if ($_POST['committee1'] == "icj") echo 'selected'; ?> disabled>ICJ</option>
-                                                <option value="ecosoc" <?php if ($_POST['committee1'] == "ecosoc") echo 'selected'; ?> disabled >ECOSOC</option>
-                                                <option value="sec" <?php if ($_POST['committee1'] == "sec") echo 'selected'; ?> >Security Council</option>
-                                                <option value="historicalsec" <?php if ($_POST['committee1'] == "historicalsec") echo 'selected'; ?> >Historical Security Council</option>
-                                                <option value="unwomen" <?php if ($_POST['committee1'] == "unwomen") echo 'selected'; ?> disabled >UN Women</option>
-                                                <option value="hrc" <?php if ($_POST['committee1'] == "hrc") echo 'selected'; ?> disabled>Human Rights Council</option>
-                                                <option value="legal" <?php if ($_POST['committee1'] == "legal") echo 'selected'; ?> disabled>Legal Council</option>
-                                            </select>
-                                            <?php echo "<p class='text-danger'><b>$errCommittee1</b></p>"; ?>
-                                        </div>
-                                        <label class="control-label col-sm-4" for="suggestion1">Please enter a topic suggestion (required)</label>
-                                        <div class="col-md-8">
-                                            <textarea type="text" class="form-control" id="suggestion1" name="suggestion1" rows="2" placeholder="Required"><?php echo $suggestion1; ?></textarea>
-                                            <?php echo "<p class='text-danger'>$errSuggestion1</p>";?>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-4" for="committee2">Committee choice 2: </label>
-                                        <div class="col-md-8">
-                                            <select class="selectpicker" name="committee2" title="Select a committee">
-                                                <option value="icj" <?php if ($_POST['committee2'] == "icj") echo 'selected'; ?> disabled>ICJ</option>
-                                                <option value="ecosoc" <?php if ($_POST['committee2'] == "ecosoc") echo 'selected'; ?> disabled >ECOSOC</option>
-                                                <option value="sec" <?php if ($_POST['committee2'] == "sec") echo 'selected'; ?> >Security Council</option>
-                                                <option value="historicalsec" <?php if ($_POST['committee2'] == "historicalsec") echo 'selected'; ?> >Historical Security Council</option>
-                                                <option value="unwomen" <?php if ($_POST['committee2'] == "unwomen") echo 'selected'; ?> disabled >UN Women</option>
-                                                <option value="hrc" <?php if ($_POST['committee2'] == "hrc") echo 'selected'; ?> disabled >Human Rights Council</option>
-                                                <option value="legal" <?php if ($_POST['committee2'] == "legal") echo 'selected'; ?> disabled>Legal Council</option>
-                                            </select>
-                                            <?php echo "<p class='text-danger'><b>$errCommittee2</b></p>"; ?>
-                                        </div>
-                                        <label class="control-label col-sm-4" for="suggestion2">Please enter a topic suggestion (required)</label>
-                                        <div class="col-md-8">
-                                            <textarea type="text" class="form-control" id="suggestion2" name="suggestion2" rows="2" placeholder="Required"><?php echo $suggestion2; ?></textarea>
-                                            <?php echo "<p class='text-danger'>$errSuggestion2</p>";?>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-4" for="committee3">Committee choice 3: </label>
-                                        <div class="col-md-8">
-                                            <select class="selectpicker" name="committee3" title="Select a committee">
-                                                <option value="icj" <?php if ($_POST['committee3'] == "icj") echo 'selected'; ?> disabled>ICJ</option>
-                                                <option value="ecosoc" <?php if ($_POST['committee3'] == "ecosoc") echo 'selected'; ?> disabled >ECOSOC</option>
-                                                <option value="sec" <?php if ($_POST['committee3'] == "sec") echo 'selected'; ?> >Security Council</option>
-                                                <option value="historicalsec" <?php if ($_POST['committee3'] == "historicalsec") echo 'selected'; ?> >Historical Security Council</option>
-                                                <option value="unwomen" <?php if ($_POST['committee3'] == "unwomen") echo 'selected'; ?> disabled>UN Women</option>
-                                                <option value="hrc" <?php if ($_POST['committee3'] == "hrc") echo 'selected'; ?> disabled>Human Rights Council</option>
-                                                <option value="legal" <?php if ($_POST['committee3'] == "legal") echo 'selected'; ?> disabled>Legal Council</option>
-                                            </select>
-                                            <?php echo "<p class='text-danger'><b>$errCommittee3</b></p>"; ?>
-                                        </div>
-                                        <label class="control-label col-sm-4" for="suggestion3">Please enter a topic suggestion (optional)</label>
-                                        <div class="col-md-8">
-                                            <textarea type="text" class="form-control" id="suggestion3" name="suggestion3" rows="2" placeholder="Optional"><?php echo $suggestion3; ?></textarea>
+                                <?php
+                                
+                                for ($x = 1; $x <= 3; $x++) {
+                                    ?>
+                                    <div class="col-sm-4">
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-4" for="<?php echo "committee".strval($x); ?>">
+                                                Committee choice <?php echo $x; ?>: 
+                                            </label>
+                                            <div class="col-md-8">
+                                                <select class="selectpicker" name="<?php echo "committee".strval($x); ?>" title="Select a committee">
+                                                    <?php
+                                                    $committees = mysqli_query($link, "SELECT * FROM committees");
+                                                    while ($committee = mysqli_fetch_assoc($committees)) {
+                                                        $abbvname = $committee["abbvname"];
+                                                        $displayname = $committee["displayname"];
+                                                        ?>
+                                                        <option value="<?php echo $abbvname; ?>" <?php if ($_POST["committee".strval($x)] == $abbvname) echo 'selected'; ?>>
+                                                            <?php 
+                                                            echo $displayname; 
+                                                            if ($abbvname != "legal" && $abbvname != "unwomen") {
+                                                                echo " (" . strtoupper($abbvname) . ")";
+                                                            }
+                                                            ?> 
+                                                        </option>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                                <?php 
+                                                if ($x == 1) {echo "<p class='text-danger'><b>$errCommittee1</b></p>";}
+                                                elseif ($x == 2) {echo "<p class='text-danger'><b>$errCommittee2</b></p>";}
+                                                elseif ($x == 3) {echo "<p class='text-danger'><b>$errCommittee3</b></p>";}
+                                                ?>
+                                            </div>
+                                            <!-- <label class="control-label col-sm-4" for="suggestion1">Please enter a topic suggestion (required)</label>
+                                            <div class="col-md-8">
+                                                <textarea type="text" class="form-control" id="suggestion1" name="suggestion1" rows="2" placeholder="Required"><?php /// echo $suggestion1; ?></textarea>
+                                                <?php // echo "<p class='text-danger'>$errSuggestion1</p>";?>
+                                            </div> -->
                                         </div>
                                     </div>
-                                </div>
+
+                                    <?php
+                                }
+                                ?>
+
+
+                                
                             </div>
 
                             <div class="col-lg-2 col-lg-offset-5">

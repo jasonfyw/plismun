@@ -506,520 +506,88 @@
 
 
 
-                            <!-- COMMITTEE/ SELECTION -->
+                            <!-- COMMITTEE SELECTION -->
 
                             <div class="row">
+                                <?php 
+                                for ($x = 1; $x <= 3; $x++) {
+                                ?>
                                 <div class="col-sm-4">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-4" for="committee1">Committee choice 1: </label>
+                                        <label class="control-label col-sm-4" for="<?php echo "committee".strval($x); ?>">
+                                            Committee choice <?php echo $x; ?>: 
+                                        </label>
+
                                         <!-- COMMITTEE -->
                                         <div class="col-md-8">
-                                            <select class="selectpicker" id="committee1" name="committee1" title="Select a committee">
+                                            <select class="selectpicker" id="<?php echo "committee".strval($x); ?>" name="<?php echo "committee".strval($x); ?>" title="Select a committee">
                                                 <!-- <optgroup label="General Assemblies">
                                                 </optgroup> -->
-                                                <option value="hrc" <?php if ($_POST['committee1'] == "hrc") echo 'selected'; ?>>Human Rights Council (HRC)</option>
-                                                <option value="icj" <?php if ($_POST['committee1'] == "icj") echo 'selected'; ?>>International Court of Justice (ICJ)</option>
-                                                <option value="legal" <?php if ($_POST['committee1'] == "legal") echo 'selected'; ?>>Legal Committee</option>
-                                                <option value="sec" <?php if ($_POST['committee1'] == "sec") echo 'selected'; ?>>Security Council</option>
-                                                <option value="histsec" <?php if ($_POST['committee1'] == "histsec") echo 'selected'; ?>>Historical Security Council</option>
-                                                <option value="unwomen" <?php if ($_POST['committee1'] == "unwomen") echo 'selected'; ?>>UN Women</option>
+                                                <?php 
+                                                $committees = mysqli_query($link, "SELECT * FROM committees");
+                                                while ($committee = mysqli_fetch_assoc($committees)) {
+                                                    $abbvname = $committee["abbvname"];
+                                                    $displayname = $committee["displayname"];
+                                                    ?>
+                                                    <option value="<?php echo $abbvname; ?>" <?php if ($_POST["committee".strval($x)] == $abbvname) echo 'selected'; ?>>
+                                                        <?php 
+                                                        echo $displayname; 
+                                                        if ($abbvname != "legal" && $abbvname != "unwomen") {
+                                                            echo " (" . strtoupper($abbvname) . ")";
+                                                        }
+                                                        ?> 
+                                                    </option>
+                                                    <?php
+                                                }
+                                                ?>
                                             </select>
 
 
-                                            <?php echo "<p class='text-danger'><b>$errCommittee1</b></p>"; ?>
+                                            <?php 
+                                                if ($x == 1) {echo "<p class='text-danger'><b>$errCommittee1</b></p>";}
+                                                elseif ($x == 2) {echo "<p class='text-danger'><b>$errCommittee2</b></p>";}
+                                                elseif ($x == 3) {echo "<p class='text-danger'><b>$errCommittee3</b></p>";}
+                                            ?>
                                         </div>
 
                                         <label class="control-label col-sm-4" for="1"></label>
 
-                                        <!--  -->
+                                        <!-- COUNTRY PICKER FOR INDIVIDUAL COUNTRIES -->
                                         <div class="col-md-8">
-
-                                            <!-- ECOSOC -->
-                                            <!-- <div id="ecosoccountries1" class="countries1" style="display:none">
-                                                <select class="selectpicker" name="ecosoccountries1" title="Select a country" data-live-search="true">
-                                                    <optgroup label="ECOSOC Countries">
-                                                        <?php
-                                                        // for ($ecosoc = 1; $ecosoc <= 17; $ecosoc++) {
-                                                        //     $ecosocpos = $ecosoc - 1;
-                                                        //     $ecosoccountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `ecosoc` LIMIT 1 OFFSET $ecosocpos"))['country'];
-                                                        //     $ecosoccountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `ecosoc` LIMIT 1 OFFSET $ecosocpos"))['display_country'];
-                                                        //     if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `ecosoc` WHERE country = '$ecosoccountry'"))['userid'] == 0) {
-                                                        //         echo '<option value='.$ecosoccountry.'>'.$ecosoccountry_display .'</option>';
-                                                        //     } else {
-                                                        //         echo '<option value='.$ecosoccountry.' disabled>'.$ecosoccountry_display.'</option>';
-                                                        //     }
-                                                        // }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div> -->
-
-                                            <!-- HRC -->
-                                            <div id="hrccountries1" class="countries1" style="display:none">
-                                                <select class="selectpicker" name="hrccountries1" title="Select a country" data-live-search="true">
-                                                    <optgroup label="HRC Countries">
-                                                        <?php
-                                                        for ($hrc = 1; $hrc <= 18; $hrc++) {
-                                                            $hrcpos = $hrc - 1;
-                                                            $hrccountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `hrc` LIMIT 1 OFFSET $hrcpos"))['country'];
-                                                            $hrccountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `hrc` LIMIT 1 OFFSET $hrcpos"))['display_country'];
-                                                            if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `hrc` WHERE country = '$hrccountry'"))['userid'] == 0) {
-                                                                echo '<option value='.$hrccountry.'>'.$hrccountry_display .'</option>';
-                                                            } else {
-                                                                echo '<option value='.$hrccountry.' disabled>'.$hrccountry_display.'</option>';
+                                            <?php 
+                                            $abbvcommittees = mysqli_query($link, "SELECT abbvname FROM committees");
+                                            while ($abbvcommittee = mysqli_fetch_assoc($abbvcommittees)) {
+                                                $abbvname = $abbvcommittee["abbvname"];
+                                                $pickername = $abbvname.'countries'.strval($x);
+                                                ?>
+                                                <div id="<?php echo $pickername; ?>" class="<?php echo 'countries'.strval($x); ?>" style="display:none">
+                                                    <select class="selectpicker" name="<?php echo $pickername; ?>" title="Select a country" data-live-search="true">
+                                                        <optgroup label="<?php echo strtoupper($abbvname); ?> Countries" style="color: black">
+                                                            <?php
+                                                            $country_data = mysqli_query($link, "SELECT countrycode, displayname2, userid FROM ".$abbvname);
+                                                            while ($country = mysqli_fetch_assoc($country_data)) {
+                                                                if ($country['userid'] == 0) {
+                                                                    echo '<option value='.$country['countrycode'].'>'.$country['displayname2'].'</option>';
+                                                                } else {
+                                                                    echo '<option value='.$country['countrycode'].' disabled>'.$country['displayname2'].'</option>';
+                                                                }
                                                             }
-                                                        }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-
-                                            <!-- ICJ – NO MATRIX YET -->
-                                            <div id="icjcountries1" class="countries1" style="display:none">
-                                                <select class="selectpicker" name="icjcountries1" title="Select a country" data-live-search="true">
-                                                    <optgroup label="ICJ Countries">
-                                                        <?php
-                                                        for ($icj = 1; $icj <= 15; $icj++) {
-                                                            $icjpos = $icj - 1;
-                                                            $icjcountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `icj` LIMIT 1 OFFSET $icjpos"))['country'];
-                                                            $icjcountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `icj` LIMIT 1 OFFSET $icjpos"))['display_country'];
-                                                            if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `icj` WHERE country = '$icjcountry'"))['userid'] == 0) {
-                                                                echo '<option value='.$icjcountry.'>'.$icjcountry_display .'</option>';
-                                                            } else {
-                                                                echo '<option value='.$icjcountry.' disabled>'.$icjcountry_display.'</option>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-
-                                            <!-- LEGAL -->
-                                            <div id="legalcountries1" class="countries1" style="display:none">
-                                                <select class="selectpicker" name="legalcountries1" title="Select a country" data-live-search="true">
-                                                    <optgroup label="Legal Committee Countries">
-                                                        <?php
-                                                        for ($legal = 1; $legal <= 19; $legal++) {
-                                                            $legalpos = $legal - 1;
-                                                            $legalcountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `legal` LIMIT 1 OFFSET $legalpos"))['country'];
-                                                            $legalcountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `legal` LIMIT 1 OFFSET $legalpos"))['display_country'];
-                                                            if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `legal` WHERE country = '$legalcountry'"))['userid'] == 0) {
-                                                                echo '<option value='.$legalcountry.'>'.$legalcountry_display .'</option>';
-                                                            } else {
-                                                                echo '<option value='.$legalcountry.' disabled>'.$legalcountry_display.'</option>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-
-                                            <!-- SECURITY COUNCIL -->
-                                            <div id="seccountries1" class="countries1" style="display:none">
-                                                <select class="selectpicker" name="seccountries1" title="Select a country" data-live-search="true">
-                                                    <optgroup label="Security Council Countries">
-                                                        <?php
-                                                        for ($sec = 1; $sec <= 15; $sec++) { // where integer = number of countries in committee
-                                                            $secpos = $sec - 1;
-                                                            $seccountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `sec` LIMIT 1 OFFSET $secpos"))['country'];
-                                                            $seccountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `sec` LIMIT 1 OFFSET $secpos"))['display_country'];
-                                                            if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `sec` WHERE country = '$seccountry'"))['userid'] == 0) {
-                                                                echo '<option value='.$seccountry.'>'.$seccountry_display .'</option>';
-                                                            } else {
-                                                                echo '<option value='.$seccountry.' disabled>'.$seccountry_display.'</option>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-
-                                            <!-- HISTORICAL SECURITY -->
-                                            <div id="histseccountries1" class="countries1" style="display:none">
-                                                <select class="selectpicker" name="histseccountries1" title="Select a country" data-live-search="true">
-                                                    <optgroup label="Historical Security Council Countries">
-                                                        <?php
-                                                        for ($histsec = 1; $histsec <= 15; $histsec++) {
-                                                            $histsecpos = $histsec - 1;
-                                                            $histseccountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `histsec` LIMIT 1 OFFSET $histsecpos"))['country'];
-                                                            $histseccountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `histsec` LIMIT 1 OFFSET $histsecpos"))['display_country'];
-                                                            if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `histsec` WHERE country = '$histseccountry'"))['userid'] == 0) {
-                                                                echo '<option value='.$histseccountry.'>'.$histseccountry_display .'</option>';
-                                                            } else {
-                                                                echo '<option value='.$histseccountry.' disabled>'.$histseccountry_display.'</option>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-
-                                            <!-- UN WOMEN -->
-                                            <div id="unwomencountries1" class="countries1" style="display:none">
-                                                <select class="selectpicker" name="unwomencountries1" title="Select a country" data-live-search="true">
-                                                    <optgroup label="unwomen Countries">
-                                                        <?php
-                                                        for ($unwomen = 1; $unwomen <= 20; $unwomen++) {
-                                                            $unwomenpos = $unwomen - 1;
-                                                            $unwomencountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `unwomen` LIMIT 1 OFFSET $unwomenpos"))['country'];
-                                                            $unwomencountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `unwomen` LIMIT 1 OFFSET $unwomenpos"))['display_country'];
-                                                            if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `unwomen` WHERE country = '$unwomencountry'"))['userid'] == 0) {
-                                                                echo '<option value='.$unwomencountry.'>'.$unwomencountry_display .'</option>';
-                                                            } else {
-                                                                echo '<option value='.$unwomencountry.' disabled>'.$unwomencountry_display.'</option>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-
+                                                            ?>
+                                                        </optgroup>
+                                                    </select>
+                                                </div>
+                                                <?php
+                                            }
+                                            ?>
                                             <?php echo "<p class='text-danger'><b>$errCountry1</b></p>"; ?>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-4" for="committee2">Committee choice 2: </label>
+                                <?php
+                                }
+                                ?>
 
-                                        <!-- COMMITTEE -->
-                                        <div class="col-md-8">
-                                            <select class="selectpicker" id="committee2" name="committee2" title="Select a committee">
-                                                <!-- <optgroup label="General Assemblies">
-                                                </optgroup> -->
-                                                <option value="hrc" <?php if ($_POST['committee2'] == "hrc") echo 'selected'; ?>>Human Rights Council (HRC)</option>
-                                                <option value="icj" <?php if ($_POST['committee2'] == "icj") echo 'selected'; ?>>International Court of Justice (ICJ)</option>
-                                                <option value="legal" <?php if ($_POST['committee2'] == "legal") echo 'selected'; ?>>Legal Committee</option>
-                                                <option value="sec" <?php if ($_POST['committee2'] == "sec") echo 'selected'; ?>>Security Council</option>
-                                                <option value="histsec" <?php if ($_POST['committee2'] == "histsec") echo 'selected'; ?>>Historical Security Council</option>
-                                                <option value="unwomen" <?php if ($_POST['committee2'] == "unwomen") echo 'selected'; ?>>UN Women</option>
-                                            </select>
-
-
-                                            <?php echo "<p class='text-danger'><b>$errCommittee2</b></p>"; ?>
-                                        </div>
-
-                                        <label class="control-label col-sm-4" for="country2"></label>
-
-                                        <!-- COUNTRY -->
-                                        <div class="col-md-8">
-
-                                            <!-- ECOSOC -->
-                                            <!-- <div id="ecosoccountries2" class="countries2" style="display:none">
-                                                <select class="selectpicker" name="ecosoccountries2" title="Select a country" data-live-search="true">
-                                                    <optgroup label="ECOSOC Countries">
-                                                        <?php
-                                                        // for ($ecosoc = 1; $ecosoc <= 17; $ecosoc++) {
-                                                        //     $ecosocpos = $ecosoc - 1;
-                                                        //     $ecosoccountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `ecosoc` LIMIT 1 OFFSET $ecosocpos"))['country'];
-                                                        //     $ecosoccountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `ecosoc` LIMIT 1 OFFSET $ecosocpos"))['display_country'];
-                                                        //     if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `ecosoc` WHERE country = '$ecosoccountry'"))['userid'] == 0) {
-                                                        //         echo '<option value='.$ecosoccountry.'>'.$ecosoccountry_display .'</option>';
-                                                        //     } else {
-                                                        //         echo '<option value='.$ecosoccountry.' disabled>'.$ecosoccountry_display.'</option>';
-                                                        //     }
-                                                        // }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div> -->
-
-                                            <!-- HRC -->
-                                            <div id="hrccountries2" class="countries2" style="display:none">
-                                                <select class="selectpicker" name="hrccountries2" title="Select a country" data-live-search="true">
-                                                    <optgroup label="HRC Countries">
-                                                        <?php
-                                                        for ($hrc = 1; $hrc <= 18; $hrc++) {
-                                                            $hrcpos = $hrc - 1;
-                                                            $hrccountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `hrc` LIMIT 1 OFFSET $hrcpos"))['country'];
-                                                            $hrccountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `hrc` LIMIT 1 OFFSET $hrcpos"))['display_country'];
-                                                            if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `hrc` WHERE country = '$hrccountry'"))['userid'] == 0) {
-                                                                echo '<option value='.$hrccountry.'>'.$hrccountry_display .'</option>';
-                                                            } else {
-                                                                echo '<option value='.$hrccountry.' disabled>'.$hrccountry_display.'</option>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-
-                                            <!-- ICJ – NO MATRIX YET -->
-                                            <div id="icjcountries2" class="countries2" style="display:none">
-                                                <select class="selectpicker" name="icjcountries2" title="Select a country" data-live-search="true">
-                                                    <optgroup label="ICJ Countries">
-                                                        <?php
-                                                        for ($icj = 1; $icj <= 15; $icj++) {
-                                                            $icjpos = $icj - 1;
-                                                            $icjcountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `icj` LIMIT 1 OFFSET $icjpos"))['country'];
-                                                            $icjcountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `icj` LIMIT 1 OFFSET $icjpos"))['display_country'];
-                                                            if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `icj` WHERE country = '$icjcountry'"))['userid'] == 0) {
-                                                                echo '<option value='.$icjcountry.'>'.$icjcountry_display .'</option>';
-                                                            } else {
-                                                                echo '<option value='.$icjcountry.' disabled>'.$icjcountry_display.'</option>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-
-                                            <!-- LEGAL -->
-                                            <div id="legalcountries2" class="countries2" style="display:none">
-                                                <select class="selectpicker" name="legalcountries2" title="Select a country" data-live-search="true">
-                                                    <optgroup label="Legal Committee Countries">
-                                                        <?php
-                                                        for ($legal = 1; $legal <= 19; $legal++) {
-                                                            $legalpos = $legal - 1;
-                                                            $legalcountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `legal` LIMIT 1 OFFSET $legalpos"))['country'];
-                                                            $legalcountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `legal` LIMIT 1 OFFSET $legalpos"))['display_country'];
-                                                            if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `legal` WHERE country = '$legalcountry'"))['userid'] == 0) {
-                                                                echo '<option value='.$legalcountry.'>'.$legalcountry_display .'</option>';
-                                                            } else {
-                                                                echo '<option value='.$legalcountry.' disabled>'.$legalcountry_display.'</option>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-
-                                            <!-- SECURITY COUNCIL -->
-                                            <div id="seccountries2" class="countries2" style="display:none">
-                                                <select class="selectpicker" name="seccountries2" title="Select a country" data-live-search="true">
-                                                    <optgroup label="Security Council Countries">
-                                                        <?php
-                                                        for ($sec = 1; $sec <= 15; $sec++) { // where integer = number of countries in committee
-                                                            $secpos = $sec - 1;
-                                                            $seccountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `sec` LIMIT 1 OFFSET $secpos"))['country'];
-                                                            $seccountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `sec` LIMIT 1 OFFSET $secpos"))['display_country'];
-                                                            if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `sec` WHERE country = '$seccountry'"))['userid'] == 0) {
-                                                                echo '<option value='.$seccountry.'>'.$seccountry_display .'</option>';
-                                                            } else {
-                                                                echo '<option value='.$seccountry.' disabled>'.$seccountry_display.'</option>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-
-                                            <!-- HISTORICAL SECURITY -->
-                                            <div id="histseccountries2" class="countries2" style="display:none">
-                                                <select class="selectpicker" name="histseccountries2" title="Select a country" data-live-search="true">
-                                                    <optgroup label="Historical Security Council Countries">
-                                                        <?php
-                                                        for ($histsec = 1; $histsec <= 15; $histsec++) {
-                                                            $histsecpos = $histsec - 1;
-                                                            $histseccountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `histsec` LIMIT 1 OFFSET $histsecpos"))['country'];
-                                                            $histseccountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `histsec` LIMIT 1 OFFSET $histsecpos"))['display_country'];
-                                                            if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `histsec` WHERE country = '$histseccountry'"))['userid'] == 0) {
-                                                                echo '<option value='.$histseccountry.'>'.$histseccountry_display .'</option>';
-                                                            } else {
-                                                                echo '<option value='.$histseccountry.' disabled>'.$histseccountry_display.'</option>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-
-                                            <!-- UN WOMEN -->
-                                            <div id="unwomencountries2" class="countries2" style="display:none">
-                                                <select class="selectpicker" name="unwomencountries2" title="Select a country" data-live-search="true">
-                                                    <optgroup label="unwomen Countries">
-                                                        <?php
-                                                        for ($unwomen = 1; $unwomen <= 20; $unwomen++) {
-                                                            $unwomenpos = $unwomen - 1;
-                                                            $unwomencountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `unwomen` LIMIT 1 OFFSET $unwomenpos"))['country'];
-                                                            $unwomencountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `unwomen` LIMIT 1 OFFSET $unwomenpos"))['display_country'];
-                                                            if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `unwomen` WHERE country = '$unwomencountry'"))['userid'] == 0) {
-                                                                echo '<option value='.$unwomencountry.'>'.$unwomencountry_display .'</option>';
-                                                            } else {
-                                                                echo '<option value='.$unwomencountry.' disabled>'.$unwomencountry_display.'</option>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-
-                                            <?php echo "<p class='text-danger'><b>$errCountry2</b></p>"; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-4" for="committee3">Committee choice 3: </label>
-
-                                        <!-- COMMITTEE -->
-                                        <div class="col-md-8">
-                                            <select class="selectpicker" id="committee3" name="committee3" title="Select a committee">
-                                                <!-- <optgroup label="General Assemblies">
-                                                </optgroup> -->
-                                                <option value="hrc" <?php if ($_POST['committee3'] == "hrc") echo 'selected'; ?>>Human Rights Council (HRC)</option>
-                                                <option value="icj" <?php if ($_POST['committee3'] == "icj") echo 'selected'; ?>>International Court of Justice (ICJ)</option>
-                                                <option value="legal" <?php if ($_POST['committee3'] == "legal") echo 'selected'; ?>>Legal Committee</option>
-                                                <option value="sec" <?php if ($_POST['committee3'] == "sec") echo 'selected'; ?>>Security Council</option>
-                                                <option value="histsec" <?php if ($_POST['committee3'] == "histsec") echo 'selected'; ?>>Historical Security Council</option>
-                                                <option value="unwomen" <?php if ($_POST['committee3'] == "unwomen") echo 'selected'; ?>>UN Women</option>
-                                            </select>
-
-
-                                            <?php echo "<p class='text-danger'><b>$errCommittee3</b></p>"; ?>
-                                        </div>
-
-                                        <label class="control-label col-sm-4" for="country3"></label>
-
-                                        <!-- COUNTRY -->
-                                        <div class="col-md-8">
-
-                                            <!-- ECOSOC -->
-                                            <!-- <div id="ecosoccountries3" class="countries3" style="display:none">
-                                                <select class="selectpicker" name="ecosoccountries3" title="Select a country" data-live-search="true">
-                                                    <optgroup label="ECOSOC Countries">
-                                                        <?php
-                                                        // for ($ecosoc = 1; $ecosoc <= 17; $ecosoc++) {
-                                                        //     $ecosocpos = $ecosoc - 1;
-                                                        //     $ecosoccountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `ecosoc` LIMIT 1 OFFSET $ecosocpos"))['country'];
-                                                        //     $ecosoccountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `ecosoc` LIMIT 1 OFFSET $ecosocpos"))['display_country'];
-                                                        //     if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `ecosoc` WHERE country = '$ecosoccountry'"))['userid'] == 0) {
-                                                        //         echo '<option value='.$ecosoccountry.'>'.$ecosoccountry_display .'</option>';
-                                                        //     } else {
-                                                        //         echo '<option value='.$ecosoccountry.' disabled>'.$ecosoccountry_display.'</option>';
-                                                        //     }
-                                                        // }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div> -->
-
-                                            <!-- HRC -->
-                                            <div id="hrccountries3" class="countries3" style="display:none">
-                                                <select class="selectpicker" name="hrccountries3" title="Select a country" data-live-search="true">
-                                                    <optgroup label="HRC Countries">
-                                                        <?php
-                                                        for ($hrc = 1; $hrc <= 18; $hrc++) {
-                                                            $hrcpos = $hrc - 1;
-                                                            $hrccountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `hrc` LIMIT 1 OFFSET $hrcpos"))['country'];
-                                                            $hrccountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `hrc` LIMIT 1 OFFSET $hrcpos"))['display_country'];
-                                                            if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `hrc` WHERE country = '$hrccountry'"))['userid'] == 0) {
-                                                                echo '<option value='.$hrccountry.'>'.$hrccountry_display .'</option>';
-                                                            } else {
-                                                                echo '<option value='.$hrccountry.' disabled>'.$hrccountry_display.'</option>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-
-                                            <!-- ICJ – NO MATRIX YET -->
-                                            <div id="icjcountries3" class="countries3" style="display:none">
-                                                <select class="selectpicker" name="icjcountries3" title="Select a country" data-live-search="true">
-                                                    <optgroup label="ICJ Countries">
-                                                        <?php
-                                                        for ($icj = 1; $icj <= 15; $icj++) {
-                                                            $icjpos = $icj - 1;
-                                                            $icjcountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `icj` LIMIT 1 OFFSET $icjpos"))['country'];
-                                                            $icjcountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `icj` LIMIT 1 OFFSET $icjpos"))['display_country'];
-                                                            if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `icj` WHERE country = '$icjcountry'"))['userid'] == 0) {
-                                                                echo '<option value='.$icjcountry.'>'.$icjcountry_display .'</option>';
-                                                            } else {
-                                                                echo '<option value='.$icjcountry.' disabled>'.$icjcountry_display.'</option>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-
-                                            <!-- LEGAL -->
-                                            <div id="legalcountries3" class="countries3" style="display:none">
-                                                <select class="selectpicker" name="legalcountries3" title="Select a country" data-live-search="true">
-                                                    <optgroup label="Legal Committee Countries">
-                                                        <?php
-                                                        for ($legal = 1; $legal <= 19; $legal++) {
-                                                            $legalpos = $legal - 1;
-                                                            $legalcountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `legal` LIMIT 1 OFFSET $legalpos"))['country'];
-                                                            $legalcountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `legal` LIMIT 1 OFFSET $legalpos"))['display_country'];
-                                                            if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `legal` WHERE country = '$legalcountry'"))['userid'] == 0) {
-                                                                echo '<option value='.$legalcountry.'>'.$legalcountry_display .'</option>';
-                                                            } else {
-                                                                echo '<option value='.$legalcountry.' disabled>'.$legalcountry_display.'</option>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-
-                                            <!-- SECURITY COUNCIL -->
-                                            <div id="seccountries3" class="countries3" style="display:none">
-                                                <select class="selectpicker" name="seccountries3" title="Select a country" data-live-search="true">
-                                                    <optgroup label="Security Council Countries">
-                                                        <?php
-                                                        for ($sec = 1; $sec <= 15; $sec++) { // where integer = number of countries in committee
-                                                            $secpos = $sec - 1;
-                                                            $seccountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `sec` LIMIT 1 OFFSET $secpos"))['country'];
-                                                            $seccountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `sec` LIMIT 1 OFFSET $secpos"))['display_country'];
-                                                            if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `sec` WHERE country = '$seccountry'"))['userid'] == 0) {
-                                                                echo '<option value='.$seccountry.'>'.$seccountry_display .'</option>';
-                                                            } else {
-                                                                echo '<option value='.$seccountry.' disabled>'.$seccountry_display.'</option>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-
-                                            <!-- HISTORICAL SECURITY -->
-                                            <div id="histseccountries3" class="countries3" style="display:none">
-                                                <select class="selectpicker" name="histseccountries3" title="Select a country" data-live-search="true">
-                                                    <optgroup label="Historical Security Council Countries">
-                                                        <?php
-                                                        for ($histsec = 1; $histsec <= 15; $histsec++) {
-                                                            $histsecpos = $histsec - 1;
-                                                            $histseccountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `histsec` LIMIT 1 OFFSET $histsecpos"))['country'];
-                                                            $histseccountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `histsec` LIMIT 1 OFFSET $histsecpos"))['display_country'];
-                                                            if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `histsec` WHERE country = '$histseccountry'"))['userid'] == 0) {
-                                                                echo '<option value='.$histseccountry.'>'.$histseccountry_display .'</option>';
-                                                            } else {
-                                                                echo '<option value='.$histseccountry.' disabled>'.$histseccountry_display.'</option>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-
-                                            <!-- UN WOMEN -->
-                                            <div id="unwomencountries3" class="countries3" style="display:none">
-                                                <select class="selectpicker" name="unwomencountries3" title="Select a country" data-live-search="true">
-                                                    <optgroup label="unwomen Countries">
-                                                        <?php
-                                                        for ($unwomen = 1; $unwomen <= 20; $unwomen++) {
-                                                            $unwomenpos = $unwomen - 1;
-                                                            $unwomencountry = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM `unwomen` LIMIT 1 OFFSET $unwomenpos"))['country'];
-                                                            $unwomencountry_display = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM `unwomen` LIMIT 1 OFFSET $unwomenpos"))['display_country'];
-                                                            if (mysqli_fetch_assoc(mysqli_query($link, "SELECT `userid` FROM `unwomen` WHERE country = '$unwomencountry'"))['userid'] == 0) {
-                                                                echo '<option value='.$unwomencountry.'>'.$unwomencountry_display .'</option>';
-                                                            } else {
-                                                                echo '<option value='.$unwomencountry.' disabled>'.$unwomencountry_display.'</option>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-
-                                            <?php echo "<p class='text-danger'><b>$errCountry3</b></p>"; ?>
-                                        </div>
-
-
-                                    </div>
-                                </div>
+                                
                             </div>
 
                             <div class="col-lg-2 col-lg-offset-5">
