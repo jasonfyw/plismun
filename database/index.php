@@ -76,13 +76,13 @@
 
             <div class="container">
                 <div class="container">
-                    <h1><a href="committees">View committees</a></h1>
+                    <h1><a href="committeesdb">View committees</a></h1>
                 </div>
                 <div class="container">
-                    <h1><a href="delegates">View delegates</a></h1>
+                    <h1><a href="delegatesdb">View delegates</a></h1>
                 </div>
                 <div class="container">
-                    <h1><a href="delegations">View delegations</a></h1>
+                    <h1><a href="delegationsdb">View delegations</a></h1>
                 </div>
             </div>
 
