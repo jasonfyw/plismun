@@ -48,9 +48,9 @@
     <body id="page-top" data-spy="scroll" data-target=".navbar-custom" width="100%">
         <?php
         session_start();
-        require_once('../config.php');
+        require_once('./config.php');
         ?>
-        
+
         <!-- Preloader -->
         <div id="preloader-overlay"></div>
 
@@ -69,95 +69,109 @@
 
         <section id="committees" class="home-section text-center" width="100%" style="padding: 0;margin: 0;border: 0;">
 
-
-
-
-<!--            DETAILS AND COUNTRY MATRIX SIDEMENU THING FOR EVERY COMMITTEE-->
-
-
-
             <div class="container home-section" style="padding: 0;margin: 0;border: 0;">
+                <!-- DETAILS AND COUNTRY MATRIX SIDEMENU THING FOR EVERY COMMITTEE-->
+                <?php
+                $committees = mysqli_query($link, "SELECT * FROM committees");
+                while ($committee = mysqli_fetch_assoc($committees)) {
+                    // fetch committee information from db
+                    $abbvname = $committee["abbvname"];
+                    $displayname = $committee["displayname"];
+                    // $difficulty = $committee["difficulty"];
+                    // $chair1 = $committee["chair1"];
+                    // $chair2 = $committee["chair2"];
+                    $chair1 = "<i>TBD</i>";
+                    $chair2 = "";
+                    $topic1 = $committee["topic1"];
+                    $topic2 = $committee["topic2"];
+                    
+                    // fetch country names from the respective committee table
+                    $countries = mysqli_query($link, "SELECT displayname2 FROM $abbvname");
+                ?>
 
-                
-                
-                <div id="legalinfo" class="overlay">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav('legal')">&times;</a>
-                    <div class="overlay-content">
-                        <h2>Legal Committee</h2>
-                        <h4 data-toggle="tooltip" title="This committee is more suitable for MUNers with less experience and seeking an easier committee to participate in">Beginner Committee <i class="fas fa-info-circle"></i></h4>
-                        <div class="col-lg-2 col-lg-offset-5">
-                            <hr class="marginbot-50">
-                        </div>
-                        <br><br><br><br>
-
-                        <h4>Topic:</h4>
-                        <!-- <p><i>Coming soon</i></p> -->
-                        <p>1. &nbsp;&nbsp;&nbsp; Defining the Legal Boundaries of International Cryptocurrency Usage</p>
-                        <p>2. &nbsp;&nbsp;&nbsp; Establishing a Convention Limiting Experiment and Engineering of the Human Genome</p>
-
-                        <br><br>
-
-                        <div class="row">
-                            <div class="col-sm-4 col-sm-offset-4">
-                                <h4>Chairs</h4>
-                                <p>Sebastian Dulava</p>
-                                <p>Jan Kotrc</p>
+                    <div id="<?php echo $abbvname; ?>info" class="overlay">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav('<?php echo $abbvname; ?>')">&times;</a>
+                        <div class="overlay-content">
+                            <h2>
+                                <?php 
+                                echo $displayname; 
+                                if ($abbvname != "legal" && $abbvname != "unwomen") {
+                                    echo " (" . strtoupper($abbvname) . ")";
+                                }
+                                ?> 
+                            </h2>
+                            <!-- <h4 data-toggle="tooltip" title="This committee is more suitable for MUNers with less experience and seeking an easier committee to participate in">Beginner Committee <i class="fas fa-info-circle"></i></h4> -->
+                            <div class="col-lg-2 col-lg-offset-5">
+                                <hr class="marginbot-50">
                             </div>
-                        </div>
-
-                        <br><br>
-
-                        <h4>Country matrix:</h4>
-                        <div class="col-lg-4 col-lg-offset-4">
-                            <!-- <p><i>Coming soon</i></p> -->
-                            <table class="table">
-                                <tbody>
-
-                                    <tr><td>Brazil, Federative Republic of</tr></td>
-                                    <tr><td>Canada</tr></td>
-                                    <tr><td>China, People’s Republic of</tr></td>
-                                    <tr><td>French Republic</tr></td>
-                                    <tr><td>Germany, Federal Republic of</tr></td>
-                                    <tr><td>India, Republic of</tr></td>
-                                    <tr><td>Italian Republic</tr></td>
-                                    <tr><td>Japan</tr></td>
-                                    <tr><td>Korea, Democratic People’s Republic of </tr></td>
-                                    <tr><td>Korea, Republic of</td></tr>
-                                    <tr><td>Nigeria, Federal Republic of</tr></td>
-                                    <tr><td>Norway, Kingdom of</tr></td>
-                                    <tr><td>Russian Federation</tr></td>
-                                    <tr><td>South Africa, Republic of</tr></td>
-                                    <tr><td>Spain, Kingdom of</tr></td>
-                                    <tr><td>Sweden, Kingdom of</tr></td>
-                                    <tr><td>United Arab Emirates</tr></td>
-                                    <tr><td>United Kingdom of Great Britain and Northern Ireland</tr></td>
-                                    <tr><td>United States of America</td></tr>
-                                    <tr><td>Wakanda, Kingdom of</td></tr>
-                                    <tr><td></td></tr>
-                                </tbody>
-                            </table>
                             <br><br><br><br>
+
+                            <h4>Topic:</h4>
+                            <?php 
+                            if (strlen($topic2) == 0) {
+                                ?>
+                                <p><?php echo $topic1; ?></p>
+                                <?php
+                            } else {
+                                ?>
+                                <p>1. &nbsp;&nbsp;&nbsp; <?php echo $topic1; ?></p>
+                                <p>2. &nbsp;&nbsp;&nbsp; <?php echo $topic2; ?></p>
+                                <?php
+                            }
+                            ?>
+
+                            <br><br>
+
+                            <div class="row">
+                                <div class="col-sm-4 col-sm-offset-4">
+                                    <h4>Chairs</h4>
+                                    <p><?php echo $chair1; ?></p>
+                                    <p><?php echo $chair2; ?></p>
+                                </div>
+                            </div>
+
+                            <br><br>
+
+                            <h4>Country matrix:</h4>
+                            <div class="col-lg-4 col-lg-offset-4">
+                                <!-- <p><i>Coming soon</i></p> -->
+                                <table class="table">
+                                    <tbody>
+                                        <?php 
+                                            while ($country = mysqli_fetch_assoc($countries)) {
+                                                ?>
+                                                <tr><td><?php echo $country['displayname2']; ?></td></tr>
+                                                <?php
+                                            }
+                                        ?>
+                                        <tr><td></td></tr>
+                                    </tbody>
+                                </table>
+                                <br><br><br><br>
+                            </div>
+
                         </div>
-
                     </div>
-                </div>
-
+                <?php 
+                }
+                ?>
 
 
                 <!--side bar-->
                 <div class="col-md-3" id="leftCol">
                     <ul class="nav nav-stacked" id="sidebar">
-                        <li class="nav-com"><a href="#icj">ICJ</a></li>
-                        <!-- <li class="nav-com"><a href="#ecosoc">ECOSOC</a></li> -->
-                        <li class="nav-com"><a href="#hrc">Human Rights Council</a></li>
-                        <li class="nav-com"><a href="#sec">Security Council</a></li>
-                        <li class="nav-com"><a href="#histsec">Historical Security Council</a></li>
-                        <li class="nav-com"><a href="#women">UN Women</a></li>
-                        <li class="nav-com"><a href="#legal">Legal Committee</a></li>
-                        <!-- <li class="nav-section"><a href="#ga">General Assemblies</a></li> -->
-                        <!-- <li class="nav-section"><a href="#special">Special Committees</a></li> -->
+                        <?php 
+                        $committees = mysqli_query($link, "SELECT * FROM committees");
+                        while ($committee = mysqli_fetch_assoc($committees)) {
+                        ?>
+                        <li class="nav-com"><a href="#<?php echo $committee["abbvname"] ?>"><?php echo $committee["displayname"] ?></a></li>
+                        <?php
+                        }
+                        ?>
                     </ul>
                 </div>
+
+
 
                 <!-- content -->
                 <div class="col-md-9" style="padding: 0;margin: 0;border: 0;">
@@ -189,260 +203,81 @@
                         </div>
                     </div> -->
 
+                    <?php 
+                    $committees = mysqli_query($link, "SELECT * FROM committees");
+                    while ($committee = mysqli_fetch_assoc($committees)) {
+                         // fetch committee information from db
+                        $abbvname = $committee["abbvname"];
+                        $displayname = $committee["displayname"];
+                        $topic1 = $committee["topic1"];
+                        $topic2 = $committee["topic2"];
+                        ?>
+                    
 
-
-                    <div class="heading-about" id="icj">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-2 col-lg-offset-5">
-                                    <hr class="marginbot-50">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-8 col-lg-offset-2">
-                                    <div class="wow fadeInRight" data-wow-delay="0s">
-                                        <div class="section-heading">
-<!--                                            <div class="avatar"><img src="img/committees/unlogo.png" alt="" class="img-responsive"></div>-->
-                                            <h3>International Court of Justice (ICJ)</h3>
-
-                                        </div>
+                        <div class="heading-about" id="<?php echo $abbvname; ?>">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-2 col-lg-offset-5">
+                                        <hr class="marginbot-50">
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container">
-
-                        <div class="row">
-                            <div class="col-md-auto">
-                                <div class="wow fadeInRight" data-wow-delay="0s">
-                                    <div class="team boxed-grey">
-                                        <div class="inner">
-                                            <!-- <p><i>Coming soon</i></p> -->
-                                            <p>1. &nbsp;&nbsp;&nbsp; Reviewing the Definition of Terrorism through the Lens of the War in Donbass.</p>
-                                            <p>2. &nbsp;&nbsp;&nbsp; Reviewing the Legitimacy of Nation States Established After WW1</p>
-                                            <p>3. &nbsp;&nbsp;&nbsp; Exploring American War Crimes Throughout The Vietnam War</p>
-
-                                            <!-- <div class="dropdown">
-                                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Study Guides</button>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <li class="dropdown-item"><a href="studyguides/GA1_Study_Guide_Topic_1.pdf">Download (Topic 1) </a></li>
-                                                    <li class="dropdown-item"><a href="studyguides/GA1_Study_Guide_Topic_2.pdf">Download (Topic 2) </a></li>
-                                                </ul>
-                                            </div> -->
-                                            <button type="button" class="btn btn-default" href="#" onclick="openNav('icj');">View details and country matrix</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- <div class="heading-about" id="ecosoc">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-2 col-lg-offset-5">
-                                    <hr class="marginbot-50">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-8 col-lg-offset-2">
-                                    <div class="wow fadeInRight" data-wow-delay="0s">
-                                        <div class="section-heading">
-
-                                            <h3>UN Economic and Social Council (ECOSOC)</h3>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container">
-
-                        <div class="row">
-                            <div class="col-md-auto">
-                                <div class="wow fadeInRight" data-wow-delay="0s">
-                                    <div class="team boxed-grey">
-                                        <div class="inner">
-                                            <p>1. &nbsp;&nbsp;&nbsp; Combating racial discrimination of Haitians in the Dominican Republic</p>
-                                            <p>2. &nbsp;&nbsp;&nbsp; Addressing the rising effects of international migration on urbanisation.</p>
-                                            <div class="dropdown">
-                                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Study Guides</button>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <li class="dropdown-item"><a href="studyguides/GA3_Study_Guide_Topic_1.pdf">Download (Topic 1) </a></li>
-                                                    <li class="dropdown-item"><a href="studyguides/GA3_Study_Guide_Topic_2.pdf">Download (Topic 2) </a></li>
-                                                </ul>
+                                <div class="row">
+                                    <div class="col-lg-8 col-lg-offset-2">
+                                        <div class="wow fadeInRight" data-wow-delay="0s">
+                                            <div class="section-heading">
+                                                <h3>
+                                                <?php 
+                                                echo $displayname; 
+                                                if ($abbvname != "legal" && $abbvname != "unwomen") {
+                                                    echo " (" . strtoupper($abbvname) . ")";
+                                                }
+                                                ?> 
+                                                </h3>
                                             </div>
-                                            <button type="button" class="btn btn-default" href="#" onclick="openNav('ecosoc');">View details and country matrix</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div> -->
-
-
-                    <div class="heading-about" id="hrc">
                         <div class="container">
+
                             <div class="row">
-                                <div class="col-lg-2 col-lg-offset-5">
-                                    <hr class="marginbot-50">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-8 col-lg-offset-2">
+                                <div class="col-md-auto">
                                     <div class="wow fadeInRight" data-wow-delay="0s">
-                                        <div class="section-heading">
+                                        <div class="team boxed-grey">
+                                            <div class="inner">
+                                                <?php 
+                                                if (strlen($topic2) == 0) {
+                                                    ?>
+                                                    <p><?php echo $topic1; ?></p>
+                                                    <?php
+                                                } else {
+                                                    ?>
+                                                    <p>1. &nbsp;&nbsp;&nbsp; <?php echo $topic1; ?></p>
+                                                    <p>2. &nbsp;&nbsp;&nbsp; <?php echo $topic2; ?></p>
+                                                    <?php
+                                                }
+                                                ?>
 
-                                            <h3>Human Rights Council (HRC)</h3>
-
+                                                <!-- <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Study Guides</button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <li class="dropdown-item"><a href="studyguides/GA1_Study_Guide_Topic_1.pdf">Download (Topic 1) </a></li>
+                                                        <li class="dropdown-item"><a href="studyguides/GA1_Study_Guide_Topic_2.pdf">Download (Topic 2) </a></li>
+                                                    </ul>
+                                                </div> -->
+                                                <button type="button" class="btn btn-default" href="#" onclick="openNav('<?php echo $abbvname; ?>');">View details and country matrix</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="container">
+                    <?php
+                    }
+                    ?>
 
-                        <div class="row">
-                            <div class="col-md-auto">
-                                <div class="wow fadeInRight" data-wow-delay="0s">
-                                    <div class="team boxed-grey">
-                                        <div class="inner">
-                                            <!-- <p><i>Coming soon</i></p> -->
-                                            <p>1. &nbsp;&nbsp;&nbsp; Combating Global Modern Slavery</p>
-                                            <p>2. &nbsp;&nbsp;&nbsp; Establishing Laws Regarding Extrajudicial Killings</p>
-                                            <!--<div class="dropdown">
-                                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Study Guides</button>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <li class="dropdown-item"><a href="studyguides/GA6_Study_Guide_Topic_1.pdf">Download (Topic 1) </a></li>
-                                                    <li class="dropdown-item"><a href="studyguides/GA6_Study_Guide_Topic_2.pdf">Download (Topic 2) </a></li>
-                                                </ul>
-                                            </div> -->
-                                            <button type="button" class="btn btn-default" href="#" onclick="openNav('hrc');">View details and country matrix</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-                    <!-- <div class="heading-about" id="special">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-2 col-lg-offset-5">
-                                    <hr class="marginbot-50">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-8 col-lg-offset-2">
-                                    <div class="wow fadeInRight" data-wow-delay="0s">
-                                        <div class="section-heading">
-                                            <h2>Special Committees</h2>
-                                            <i class="fa fa-2x fa-angle-down"></i>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
-
-                    <div class="heading-about" id="sec">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-2 col-lg-offset-5">
-                                    <hr class="marginbot-50">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-8 col-lg-offset-2">
-                                    <div class="wow fadeInRight" data-wow-delay="0s">
-                                        <div class="section-heading">
-<!--                                            <div class="avatar"><img src="img/committees/unesco.png" alt="" class="img-responsive">-->
-                                            <h3>Security Council</h3>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container">
-
-                        <div class="row">
-                            <div class="col-md-auto">
-                                <div class="wow fadeInRight" data-wow-delay="0s">
-                                    <div class="team boxed-grey">
-                                        <div class="inner">
-                                            <!-- <p><i>Coming soon</i></p> -->
-                                            <p>The Deteriorating Situation of Muslim Uighurs in the People’s Republic of China</p>
-                                            <!--<div class="dropdown">
-                                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Study Guides</button>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <li class="dropdown-item"><a href="studyguides/SC_Study_Guide.pdf">Download </a></li>
-                                                </ul>
-                                            </div> -->
-                                            <button type="button" class="btn btn-default" href="#" onclick="openNav('sec');">View details and country matrix</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="heading-about" id="histsec">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-2 col-lg-offset-5">
-                                    <hr class="marginbot-50">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-8 col-lg-offset-2">
-                                    <div class="wow fadeInRight" data-wow-delay="0s">
-                                        <div class="section-heading">
-                                            <h3>Historical Security Council</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container">
-
-                        <div class="row">
-                            <div class="col-md-auto">
-                                <div class="wow fadeInRight" data-wow-delay="0s">
-                                    <div class="team boxed-grey">
-                                        <div class="inner">
-                                            <!-- <p><i>Coming soon</i></p> -->
-                                           <p>Urging the end of the Genocide and Settling Peace in Rwanda, 1994</p>
-                                           <!--
-                                            <div class="dropdown">
-                                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Study Guides</button>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <li class="dropdown-item"><a href="studyguides/HSC_Study_Guide.pdf">Download</a></li>
-                                                </ul>
-                                            </div> -->
-                                            <button type="button" class="btn btn-default" href="#" onclick="openNav('histsec');">View details and country matrix</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="heading-about" id="women">
+                    <div class="heading-about" id="legal">
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-2 col-lg-offset-5">
@@ -454,7 +289,7 @@
                                     <div class="wow fadeInRight" data-wow-delay="0s">
                                         <div class="section-heading">
 <!--                                            <div class="avatar"><img src="img/committees/unlogo.png" alt="" class="img-responsive"></div>-->
-                                            <h3>UN Women</h3>
+                                            <h3>Legal Committee</h3>
 
                                         </div>
                                     </div>
@@ -470,22 +305,64 @@
                                     <div class="team boxed-grey">
                                         <div class="inner">
                                             <!-- <p><i>Coming soon</i></p> -->
-                                            <p>1. &nbsp;&nbsp;&nbsp; Combating Social Stigmata surrounding Women's Sexual Freedom and their implications on Adultery Laws</p>
-                                            <p>2. &nbsp;&nbsp;&nbsp; Creating International Standards for Mothers in the Workforce</p>
+                                            <p>1. &nbsp;&nbsp;&nbsp; Defining the Legal Boundaries of International Cryptocurrency Usage</p>
+                                            <p>2. &nbsp;&nbsp;&nbsp; Establishing a Convention Limiting Experiment and Engineering of the Human Genome</p>
                                             <!--<div class="dropdown">
                                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Study Guides</button>
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <li class="dropdown-item"><a href="studyguides/ECOSOC_Study_Guide.pdf">Download </a></li>
                                                 </ul>
                                             </div> -->
-                                            <button type="button" class="btn btn-default" href="#" onclick="openNav('women');">View details and country matrix</button>
+                                            <button type="button" class="btn btn-default" href="#" onclick="openNav('legal');">View details and country matrix</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="heading-about" id="legal">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-2 col-lg-offset-5">
+                                    <hr class="marginbot-50">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8 col-lg-offset-2">
+                                    <div class="wow fadeInRight" data-wow-delay="0s">
+                                        <div class="section-heading">
+<!--                                            <div class="avatar"><img src="img/committees/unlogo.png" alt="" class="img-responsive"></div>-->
+                                            <h3>Legal Committee</h3>
 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+
+                        <div class="row">
+                            <div class="col-md-auto">
+                                <div class="wow fadeInRight" data-wow-delay="0s">
+                                    <div class="team boxed-grey">
+                                        <div class="inner">
+                                            <!-- <p><i>Coming soon</i></p> -->
+                                            <p>1. &nbsp;&nbsp;&nbsp; Defining the Legal Boundaries of International Cryptocurrency Usage</p>
+                                            <p>2. &nbsp;&nbsp;&nbsp; Establishing a Convention Limiting Experiment and Engineering of the Human Genome</p>
+                                            <!--<div class="dropdown">
+                                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Study Guides</button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <li class="dropdown-item"><a href="studyguides/ECOSOC_Study_Guide.pdf">Download </a></li>
+                                                </ul>
+                                            </div> -->
+                                            <button type="button" class="btn btn-default" href="#" onclick="openNav('legal');">View details and country matrix</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="heading-about" id="legal">
                         <div class="container">
                             <div class="row">
