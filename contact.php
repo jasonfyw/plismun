@@ -70,7 +70,7 @@
             $mail->IsSMTP(); // telling the class to use SMTP
 
             $mail->SMTPAuth = true;                  // enable SMTP authentication
-            $mail->Host = "mx1.hostinger.com"; // sets the SMTP server
+            $mail->Host = "smtp.hostinger.com"; // sets the SMTP server
             $mail->Port = 587;
 
             $mail->Username = "info@plismun.com"; // SMTP account username
