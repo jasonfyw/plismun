@@ -68,7 +68,7 @@
                                 <li><a target="_blank" href="Delegate%20Handbook.pdf">Delegate Handbook</a></li>
                             </ul>
                         </li> -->
-                        <li class="dropdown">
+                        <!-- <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Newspaper &nbsp;<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a target="_blank" href="media/PLISMUN20–Day1.pdf">Day 1 – Thursday</a></li>
@@ -76,10 +76,10 @@
                                 <li><a target="_blank" href="media/PLISMUN20–Day3.pdf">Day 3 – Saturday</a></li>
                                 <li><a target="_blank" href="media/PLISMUN20–Day4.pdf">Day 4 – Sunday</a></li>
                             </ul>
-                        </li>
-                        <li><a href="https://drive.google.com/drive/u/3/folders/1QyB6VypqcuFHZCqpKik3SXAte-V1Ngh7">Photos</a></li>
+                        </li> -->
+                        <!-- <li><a href="https://drive.google.com/drive/u/3/folders/1QyB6VypqcuFHZCqpKik3SXAte-V1Ngh7">Photos</a></li> -->
                         <!-- <li><a href="schedule">Schedule</a></li> -->
-                        <!-- <li><a href="committees">Committees</a></li> -->
+                        <li><a href="committees">Committees</a></li>
                         <li><a href="contact">Contact</a></li>
 
 
