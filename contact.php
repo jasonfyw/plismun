@@ -47,6 +47,7 @@
             $subject = $_POST['subject'];
             $message = $_POST['message'];
             require_once('class.phpmailer.php');
+            require_once('contact_mail_config.php');
 
             $errEmail = '';
             $errFirstname = '';
@@ -70,13 +71,13 @@
             $mail->IsSMTP(); // telling the class to use SMTP
 
             $mail->SMTPAuth = true;                  // enable SMTP authentication
-            $mail->Host = "smtp.hostinger.com"; // sets the SMTP server
-            $mail->Port = 587;
+            $mail->Host = $host; // sets the SMTP server
+            $mail->Port = $port;
 
-            $mail->Username = "info@plismun.com"; // SMTP account username
-            $mail->Password = "plismun123";        // SMTP account password
+            $mail->Username = $username; // SMTP account username
+            $mail->Password = $password;        // SMTP account password
 
-            $mail->SetFrom('info@plismun.com', 'PLISMUN Notification');
+            $mail->SetFrom($username, 'PLISMUN Notification');
 
             // $mail->AddReplyTo("name@yourdomain.com","First Last");
 

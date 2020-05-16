@@ -3,6 +3,7 @@
 
 
 require_once('class.phpmailer.php');
+require_once('application_mail_config.php');
 //include("class.smtp.php"); // optional, gets called from within class.phpmailer.php if not already loaded
 
 $mail             = new PHPMailer();
@@ -29,17 +30,17 @@ Bank name: UniCredit bank Na Příkopě 858/20 113 80 Praha 1</p>
 $mail->IsSMTP(); // telling the class to use SMTP
 
 $mail->SMTPAuth   = true;                  // enable SMTP authentication
-$mail->Host       = "mx1.hostinger.com"; // sets the SMTP server
-$mail->Port = 587;
+$mail->Host       = $host; // sets the SMTP server
+$mail->Port = $port;
 
-$mail->Username   = "info@plismun.com"; // SMTP account username
-$mail->Password   = "plismun123";        // SMTP account password
+$mail->Username   = $username; // SMTP account username
+$mail->Password   = $password;        // SMTP account password
 
-$mail->SetFrom('info@plismun.com', 'this is a test');
+$mail->SetFrom($username, 'this is a test');
 
 // $mail->AddReplyTo("name@yourdomain.com","First Last");
 
-$mail->Subject    = "ahhhh";
+$mail->Subject    = "this is a test for the acceptance email";
 
 
 $mail->MsgHTML($body);

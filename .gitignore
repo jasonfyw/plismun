@@ -1,4 +1,6 @@
 config.php
+application_mail_config.php
+contact_mail_config.php
 .vscode
 jfy
 .DS_Store
