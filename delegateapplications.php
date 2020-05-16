@@ -51,7 +51,7 @@
         session_start();
         require_once('class.phpmailer.php');
         require_once('config.php');
-        require_once('applications_mail_config.php');
+        require_once('application_mail_config.php');
 
 
         if (isset($_POST['submit'])) {
@@ -131,6 +131,8 @@
 
                     $address = $delegate_info['email'];
                     $mail->AddAddress($address);
+                    $address2 = 'archive@plismun.com';
+                    $mail->AddAddress($address2);
 
 
                     if ($updatedelegate && $updatedelegate2) {

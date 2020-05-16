@@ -182,7 +182,7 @@
                 // $mail->AddReplyTo("name@yourdomain.com","First Last");
                 $mail->Subject = 'Chair application from '.$_SESSION['firstname']. ' '.$_SESSION['lastname'];
                 $mail->MsgHTML($body);
-                $address = 'dev@plismun.com';
+                $address = 'secretariat@plismun.com';
                 $mail->AddAddress($address);
                 $address2 = 'pupil.jason.wang@parklane-is.com';
                 $mail->AddAddress($address2);
