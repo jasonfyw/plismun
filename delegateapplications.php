@@ -112,7 +112,6 @@
 
 
                     $mail->IsSMTP(); // telling the class to use SMTP
-
                     $mail->SMTPAuth = true;                  // enable SMTP authentication
                     $mail->Host = $host; // sets the SMTP server
                     $mail->Port = $port;
@@ -137,7 +136,7 @@
 
                     if ($updatedelegate && $updatedelegate2) {
                         if(!$mail->Send()) {
-                            $verdictresult = '<div class="alert alert-danger">An error occurred. Please try again</div>';
+                            $verdictresult = '<div class="alert alert-danger">An error occurred. Please try again. The records have been updated but the delegate has not been emailed</div>';
                         } else {
                             $verdictresult = '<div class="alert alert-success">Verdict delivered successfully. The delegate has been emailed</div>';
                         }
@@ -166,18 +165,16 @@
 
 
 
-                $mail->IsSMTP(); // telling the class to use SMTP
+                $mail->IsSMTP(); 
 
-                $mail->SMTPAuth = true; // enable SMTP authentication
-                $mail->Host = "smtp.hostinger.com"; // sets the SMTP server
-                $mail->Port = 587;
+                $mail->SMTPAuth = true; 
+                $mail->Host = $host;
+                $mail->Port = $port;
 
-                $mail->Username = "info@plismun.com"; // SMTP account username
-                $mail->Password = "plismun123"; // SMTP account password
+                $mail->Username = $username; 
+                $mail->Password = $password; 
 
-                $mail->SetFrom('info@plismun.com', 'PLISMUN Notification');
-
-                // $mail->AddReplyTo("name@yourdomain.com","First Last");
+                $mail->SetFrom($username, 'PLISMUN Notification');
 
                 $mail->Subject = "Your PLISMUN21 application has been rejected";
 
@@ -188,12 +185,16 @@
                 $mail->AddAddress($address);
 
                 if ($updatedelegate) {
-                    if(!$mail->Send()) {
-                        $verdictresult = '<div class="alert alert-danger">An error occurred. Please try again</div>';
-                    } else {
-                        $verdictresult = '<div class="alert alert-success">Verdict delivered successfully. The delegate has been notified via email</div>';
-                    }
+                    $verdictresult = '<div class="alert alert-success">The records have been updated. Please follow up with a manual email to the deleate (<a href="mailto:'.$address.'">'.$address.'</a>)</div>';
                 }
+
+                // if ($updatedelegate) {
+                //     if(!$mail->Send()) {
+                //         $verdictresult = '<div class="alert alert-danger">An error occurred. Please try again. The records have been updated but the delegate has not been emailed</div>';
+                //     } else {
+                //         $verdictresult = '<div class="alert alert-success">Verdict delivered successfully. The delegate has been notified via email</div>';
+                //     }
+                // }
             }
         }
 
