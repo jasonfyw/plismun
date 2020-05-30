@@ -95,14 +95,28 @@
                         <p>We are pleased to inform you that your application to PLISMUN21 has been approved! </p>
                         <p>You have been selected to represent <b>".$display_country."</b> in the <b>".$display_committee." ".$abbvcommittee."</b>. To view your committee, head over to <a href='plismun.com/viewcommittee'>plismun.com/viewcommittee</a><br /><br /></p>
                         <h4>Payment details:</h4>
-                        <p><b>Below you will find the details to which the fee of €44 should be paid to <i><u>within 2 weeks of receiving this email</u></i> with your name and 'PLISMUN21' included in the payment note:</b><br /></p>
-                        <p>CZK Account number: 2107914717/2700<br />
-                        IBAN: CZ88 2700 0000 0021 0791 4717<br />
-                        SWIFT: BACXCZPP<br />
-                        Variable code: 190101<br />
-                        Bank name: UniCredit bank Na Příkopě 858/20 113 80 Praha 1</p>
+                        <p><b>Below you will find the details to which the fee of EUR 37 or CZK 1000 should be paid to <i><u>within 2 weeks of receiving this email</u></i> with your name and 'PLISMUN21' included in the payment note:</b><br /></p>
+                        <p>
+                            For EUR payments:<br/>
+                            Account name: Park Lane International School, a.s.<br/>
+                            Bank name: UniCredit Bank Czech Republic and Slovakia, a.s.<br/>
+                            EUR Account number: 2109992559/2700<br/>
+                            IBAN: CZ50 2700 0000 0021 0999 2559<br/>
+                            SWIFT: BACXCZPP<br/>
+                        </p>
+
+                        <p>
+                            For CZK payments:<br/>
+                            Account name: Park Lane International School, a.s.<br/>
+                            Bank name: UniCredit Bank Czech Republic and Slovakia, a.s.<br/>
+                            CZK Account number: 2107914717/2700<br />
+                        </p>
+                        <p>
+                            The variable code for both is <b>0219</b><br/>
+                            Please ensure the payments are <b>net of bank charges</b>
+                        </p>
                         <p><b>Using Internet banking, you must select either international wire transfer (non-domestic; you are paying with a foreign currency to a CZK account) or domestic payment (paying CZK to CZK account).</b></p>
-                        <p><b><i>Once the payment has been made, please email a copy of the invoice to <a href='mailto:plismun.official@gmail.com'>plismun.official@gmail.com</a> so we can confirm your payment</i></b><br /></p>
+                        <p><b><i>Once the payment has been made, please email a copy of the invoice to <a href='mailto:secretariat@plismun.com'>secretariat@plismun.com</a> so we can confirm your payment</i></b><br /></p>
                         <p>Thank you for your interest and participation in PLISMUN21, we look forward to seeing you in January!</p>
 
 
