@@ -51,7 +51,7 @@
                                 <li><a href="partners-en">Partners</a></li>
                                 <li><a href="about">About us</a></li>
                                 <li><a href="prague">Prague</a></li>
-                                <li><a href="teams">The Team</a></li>
+                                <!-- <li><a href="teams">The Team</a></li> -->
                                 <div class="dropdown-divider"></div>
                                 <li><a href="tos">Terms and Conditions</a></li>
                                 <li><a href="privacy">Privacy Policy</a></li>
