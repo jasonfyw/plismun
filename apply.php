@@ -148,9 +148,11 @@
             ?>
             <div class="login">
                 <div class="login-window">
-                    <div class="container row">
-                        <div class="alert alert-info col-md-5 col-md-offset-5">If you need any help registering, check out the <a href="registrationguide">registration guide by clicking on this link</a></div>
-                        <!-- <div class="alert alert-danger col-md-5 col-md-offset-5"><b>All delegate positions have been filled! Applications are now closed. </b></a></div> -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="alert alert-info col-md-4 col-md-offset-4">If you need any help registering, check out the <a href="registrationguide">registration guide by clicking on this link</a></div>
+                            <!-- <div class="alert alert-danger col-md-5 col-md-offset-5"><b>All delegate positions have been filled! Applications are now closed. </b></a></div> -->
+                        </div>
 
                     </div>
                     <div class="container">
@@ -167,17 +169,16 @@
                         <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="">
                         </div>
 
-                        <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="Applications for PLISMUN21 are expected to open in May">
-                            <a href="applydelegate" class="btn btn-info btn-block" id="chooseposition" disabled>Delegate</a>
-                        </div>
-                        <!-- Delegate registration for PLISMUN20 has been closed. Sorry!    -->
-
-                        <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="Applications for PLISMUN21 are expected to open in May">
-                            <a href="applydelegation" class="btn btn-info btn-block" id="chooseposition" disabled>Delegation</a>
+                        <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="">
+                            <a href="applydelegate" class="btn btn-info btn-block" id="chooseposition" >Delegate</a>
                         </div>
 
-                        <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="Applications for PLISMUN21 are expected to open in May">
-                            <a href="applychair" class="btn btn-info btn-block" id="chooseposition" disabled>Chair</a>
+                        <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="">
+                            <a href="applydelegation" class="btn btn-info btn-block" id="chooseposition" >Delegation</a>
+                        </div>
+
+                        <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="">
+                            <a href="applychair" class="btn btn-info btn-block" id="chooseposition" >Chair</a>
                         </div>
 
                         <!-- <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="Chairing positions have all been filled and no vacancies are currently available">
@@ -186,8 +187,8 @@
                     </div>
                     <div class="container">
                         <h2>Or view your committee</h2>
-                        <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="Applications for PLISMUN21 are expected to open in May">
-                            <a href="viewcommittee" class="btn btn-info btn-block" id="" disabled>View Your Committee</a>
+                        <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="">
+                            <a href="viewcommittee" class="btn btn-info btn-block" id="" >View Your Committee</a>
                         </div>
                     </div>
                 </div>

@@ -184,8 +184,7 @@
                 $mail->MsgHTML($body);
                 $address = 'secretariat@plismun.com';
                 $mail->AddAddress($address);
-                $address2 = 'archive@plismun.com';
-                $mail->AddBCC($address2);
+                $mail->AddBCC('archive@plismun.com');
 
 
 
