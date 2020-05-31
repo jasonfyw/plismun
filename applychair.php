@@ -184,8 +184,8 @@
                 $mail->MsgHTML($body);
                 $address = 'secretariat@plismun.com';
                 $mail->AddAddress($address);
-                $address2 = 'pupil.jason.wang@parklane-is.com';
-                $mail->AddAddress($address2);
+                $address2 = 'archive@plismun.com';
+                $mail->AddBCC($address2);
 
 
 

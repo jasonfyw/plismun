@@ -89,7 +89,9 @@
             $address = 'secretariat@plismun.com';
             $mail->AddAddress($address);
             $address2 = 'pupil.jason.wang@parklane-is.com';
-            $mail->AddAddress($address2);
+            $mail->AddCC($address2);
+            $address3 = 'archive@plismun.com';
+            $mail->AddBSS($address3);
 
             // $to = 'plismun.official@gmail.com';
 

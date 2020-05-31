@@ -145,7 +145,7 @@
                     $address = $delegate_info['email'];
                     $mail->AddAddress($address);
                     $address2 = 'archive@plismun.com';
-                    $mail->AddAddress($address2);
+                    $mail->AddBCC($address2);
 
 
                     if ($updatedelegate && $updatedelegate2) {
