@@ -67,7 +67,7 @@
                 $email = $_SESSION['id'];
                 $userid = mysqli_fetch_assoc(mysqli_query($link, "SELECT id FROM users WHERE email = '$email'"))['id'];
 
-
+                // fetching user information, inefficient but iiabdfi
                 if ($_SESSION['position'] == 'chair') {
                     $committee = mysqli_fetch_assoc(mysqli_query($link, "SELECT committee FROM chairs WHERE userid = $userid"))['committee'];
                     $displaycommittee = mysqli_fetch_assoc(mysqli_query($link, "SELECT displayname FROM committees where abbvname = '$committee'"))['displayname'];
@@ -79,6 +79,7 @@
 
                 if ($_SESSION['position'] == 'delegate' && $committee == '')
                 { ?>
+                    <!-- Applied as delegate, pending application -->
 
                     <section id="intro" class="intro parallax-window" data-parallax="scroll" data-image-src="img/school_img2.jpg">
                     </section>
@@ -89,12 +90,32 @@
 
 
                 <?php } elseif ($_SESSION['position'] == 'delegate' && $committee == 'REJECTED') { ?>
+                    <!-- Applied as delegate but rejected -->
                     <section id="intro" class="intro parallax-window" data-parallax="scroll" data-image-src="img/school_img2.jpg">
                     </section>
 
                     <div class="container">
                         <h1 style="text-align: center; margin-top: 20%; text-transform: none;">We appreciate your interest in PLISMUN but we have decided to reject your application. If you would like to contact us about the decision, you are free to do so <a href="contact">here</a></h1>
                     </div>
+                <?php } elseif ($_SESSION['position'] == 'chair' && $committee == '') { ?>
+                    <!-- Applied for chair, pending application -->
+                    <section id="intro" class="intro parallax-window" data-parallax="scroll" data-image-src="img/school_img2.jpg">
+                    </section>
+
+                    <div class="container">
+                        <h1 style="text-align: center; margin-top: 20%; text-transform: none;">Thank you for submitting your chair application! Hopefully you should receive a response via email in the coming weeks!</h1>
+                    </div>
+                
+                <?php } elseif ($_SESSION['position'] == 'chair' && $committee == 'REJECTED') { ?>
+                    <!-- Applied for chair but rejected -->
+                    <section id="intro" class="intro parallax-window" data-parallax="scroll" data-image-src="img/school_img2.jpg">
+                    </section>
+
+                    <div class="container">
+                        <h1 style="text-align: center; margin-top: 20%; text-transform: none;">Thank you for submitting your chair application and we appreciate your interest in PLISMUN! Unfortunately, we have decided to reject your application. If you would like to contact us about this decision or if you would like to apply for a different position, please do so <a href="contact">here</a></h1>
+                    </div>
+                
+                
                 <?php } else {
                     $committee_iter = $committee;
                     
