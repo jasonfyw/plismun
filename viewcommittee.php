@@ -70,11 +70,11 @@
 
                 if ($_SESSION['position'] == 'chair') {
                     $committee = mysqli_fetch_assoc(mysqli_query($link, "SELECT committee FROM chairs WHERE userid = $userid"))['committee'];
-                    $displaycommittee = strtoupper($committee);
+                    $displaycommittee = mysqli_fetch_assoc(mysqli_query($link, "SELECT displayname FROM committees where abbvname = '$committee'"))['displayname'];
                 } elseif ($_SESSION['position'] == 'delegate') {
                     $committee = mysqli_fetch_assoc(mysqli_query($link, "SELECT committee FROM delegates WHERE userid = $userid"))['committee'];
-                    $displaycommittee = strtoupper($committee);
-                    $country = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM delegates WHERE userid = $userid"))['country'];
+                    $displaycommittee = mysqli_fetch_assoc(mysqli_query($link, "SELECT displayname FROM committees where abbvname = '$committee'"))['displayname'];
+                    // $country = mysqli_fetch_assoc(mysqli_query($link, "SELECT country FROM delegates WHERE userid = $userid"))['country'];
                 }
 
                 if ($_SESSION['position'] == 'delegate' && $committee == '')
@@ -97,30 +97,18 @@
                     </div>
                 <?php } else {
                     $committee_iter = $committee;
-                    if ($displaycommittee == 'HISTSEC' || $displaycommittee == 'HISTORICALSEC') {
-                        $displaycommittee = 'HISTORICAL SECURITY COUNCIL';
-                        $committee_iter = 'historicalsec';
-                    } elseif ($displaycommittee == 'SEC') {
-                        $displaycommittee = 'SECURITY COUNCIL';
-                    }
-
-                    if ($committee == 'historicalsec') {
-                        $committee = 'histsec';
-                    }
+                    
+                    # Fetching name and email of both chairs
+                    # Note: while labelled chair and cochair here, db positions are chair1 and chair2 since PLISMUN20 and 21 committees have 2 chairs rather than chair anc cochair
                     $chairid = mysqli_fetch_assoc(mysqli_query($link, "SELECT userid FROM chairs WHERE position = 'chair1' AND committee = '$committee'"))['userid'];
-                    $chairname = mysqli_fetch_assoc(mysqli_query($link, "SELECT firstname FROM users WHERE id = $chairid"))['firstname'] . ' ' . mysqli_fetch_assoc(mysqli_query($link, "SELECT lastname FROM users WHERE id = $chairid"))['lastname'];
-                    $chairemail = mysqli_fetch_assoc(mysqli_query($link, "SELECT email FROM users WHERE id = $chairid"))['email'];
+                    $chairinfo = mysqli_fetch_assoc(mysqli_query($link, "SELECT firstname, lastname, email FROM users WHERE id = $chairid"));
+                    $chairname = $chairinfo['firstname'] . ' ' . $chairinfo['lastname'];
+                    $chairemail = $chairinfo['email'];
 
                     $cochairid = mysqli_fetch_assoc(mysqli_query($link, "SELECT userid FROM chairs WHERE position = 'chair2' AND committee = '$committee'"))['userid'];
-                    $cochairname = mysqli_fetch_assoc(mysqli_query($link, "SELECT firstname FROM users WHERE id = $cochairid"))['firstname'] . ' ' . mysqli_fetch_assoc(mysqli_query($link, "SELECT lastname FROM users WHERE id = $cochairid"))['lastname'];
-                    $cochairemail = mysqli_fetch_assoc(mysqli_query($link, "SELECT email FROM users WHERE id = $cochairid"))['email'];
-
-                    if ($committee == 'ecosoc') {
-                        $cochairname = 'Josef Štěřovský';
-                        $cochairemail = '';
-                    }
-
-
+                    $cochairinfo = mysqli_fetch_assoc(mysqli_query($link, "SELECT firstname, lastname, email FROM users WHERE id = $cochairid"));
+                    $cochairname = $cochairinfo['firstname'] . ' ' . $cochairinfo['lastname'];
+                    $cochairemail = $cochairinfo['email'];
 
                     ?>
 
@@ -165,26 +153,31 @@
                                     <tbody>
 
                                         <?php
-                                        for ($x = 1; $x <= mysqli_num_rows(mysqli_query($link, "SELECT * FROM $committee_iter")); $x++) {
-                                            $y = $x - 1;
-                                            $country_iter = mysqli_fetch_assoc(mysqli_query($link, "SELECT display_country FROM $committee_iter LIMIT 1 OFFSET $y"))["display_country"];
+                                        // iteratively loop through all countries and display them in table
+                                        $all_countries = mysqli_query($link, "SELECT * FROM $committee_iter");
+                                        while ($country = mysqli_fetch_assoc($all_countries)) {
+                                            $displayname = $country["displayname2"];
+                                            $country_userid = $country["userid"];
+                                            $country_user = mysqli_fetch_assoc(mysqli_query($link, "SELECT firstname, lastname, email FROM users WHERE id = $country_userid"));
+                                            $country_username = $country_user['firstname'] . ' ' . $country_user['lastname'];
 
-                                            $userid = mysqli_fetch_assoc(mysqli_query($link, "SELECT userid FROM $committee_iter LIMIT 1 OFFSET $y"))["userid"];
-                                            $delegatename_iter = mysqli_fetch_assoc(mysqli_query($link, "SELECT firstname FROM `users` WHERE id = $userid"))["firstname"] . ' ' . mysqli_fetch_assoc(mysqli_query($link, "SELECT lastname FROM `users` WHERE id = $userid"))["lastname"];
                                             ?>
-
                                             <tr>
-                                                <th scope="row" style="text-align: left"><?php echo $country_iter; ?></th>
-                                                <td style="text-align: left"><?php echo $delegatename_iter; ?></td>
-                                                <?php if ($_SESSION['position'] == 'chair') {
-                                                    $delegate_email = mysqli_fetch_assoc(mysqli_query($link, "SELECT email FROM users WHERE id=$userid"))["email"];
-                                                    ?>
-                                                    <td style="text-align: left"><?php echo $delegate_email; ?></td>
-                                                    <?php
-                                                }?>
+                                                <th scope="row" style="text-align: left"><?php echo $displayname; ?></th>
+                                                <td style="text-align: left"><?php echo $country_username; ?></td>
+                                                <?php
+                                                    // for privacy reasons, only the chairs are allowed to access the emails of each delegate
+                                                    if ($_SESSION['position'] == 'chair') {
+                                                        ?>
+                                                        <td style="text-align: left"><?php echo $country_user['email']; ?></td>
+                                                        <?php
+                                                    }
+                                                ?>
                                             </tr>
+                                            <?php
+                                        }
+                                        ?>
 
-                                        <?php } ?>
 
                                     </tbody>
                                 </table>
