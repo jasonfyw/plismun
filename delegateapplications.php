@@ -116,7 +116,7 @@
                             Please ensure the payments are <b>net of bank charges</b>
                         </p>
                         <p><b>Using Internet banking, you must select either international wire transfer (non-domestic; you are paying with a foreign currency to a CZK account) or domestic payment (paying CZK to CZK account).</b></p>
-                        <p><b><i>Once the payment has been made, please email a copy of the invoice to <a href='mailto:secretariat@plismun.com'>secretariat@plismun.com</a> so we can confirm your payment</i></b><br /></p>
+                        <p><b><i>Once the payment has been made, please email a copy of the invoice to <a href='mailto:payments@plismun.com'>payments@plismun.com</a> so we can confirm your payment</i></b><br /></p>
                         <p>Thank you for your interest and participation in PLISMUN21, we look forward to seeing you in January!</p>
 
 
