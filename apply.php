@@ -157,14 +157,14 @@
                     </div>
                     <div class="container">
                         <h2>Choose what to apply as</h2>
-                        <!-- <div class="row">
+                        <div class="row">
                             <div class="col-md-4 col-md-offset-4">
                                 <div class="pricing">
                                     <h5>Pricing</h5>
-                                    <p>Chairs and delegates: €44</p>
+                                    <p>Chairs and delegates: <b>€37 / CZK1000</b></p>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
 
                         <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="">
                         </div>
