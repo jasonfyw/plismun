@@ -146,7 +146,11 @@
             if(!$errBirthdate && !$errNationality && !$errDiet && !$errPhonenum && !$errGender && !$errCommittee1 && !$errCommittee2 && !$errSuggestion1 && !$errSuggestion2 && !$errCommittee3 && !$errExperience && !$errMotivation && !$errAgreetos && !$errCheckPosition) {
 
                 //convert birthdate to compatible format
-                $birthdate_insert = date('Y-m-d', strtotime(str_replace('/', '-', $birthdate)));
+                // $birthdate_insert = date('Y-m-d', strtotime(str_replace('/', '-', $birthdate)));
+
+                // again a bad fix
+                // in american format: mm/dd/yyyy
+                $birthdate_insert = $birthdate;
 
                 $mail = new PHPMailer();
 

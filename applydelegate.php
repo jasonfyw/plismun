@@ -139,8 +139,12 @@
                 }
 
 
-                //convert birthdate to compatible format
-                $birthdate_insert = date('Y-m-d', strtotime(str_replace('/', '-', $birthdate)));
+                //convert birthdate to compatible format – doesn't work
+                // $birthdate_insert = date('Y-m-d', strtotime(str_replace('/', '-', $birthdate)));
+
+                // bad fix; string taken directly from input field
+                // in american format: mm/dd/yyyy
+                $birthdate_insert = $birthdate;
 
 
 

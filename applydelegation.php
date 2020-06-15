@@ -111,7 +111,10 @@
             if(!$errBirthdate && !$errNationality && !$errDiet && !$errPhonenum && !$errGender && !$errLocation && !$errEstdelegates && !$errDelegationname && !$errAgreetos && !$errCheckPosition) {
 
                 //convert birthdate to compatible format
-                $birthdate_insert = date('Y-m-d', strtotime(str_replace('/', '-', $birthdate)));
+                // $birthdate_insert = date('Y-m-d', strtotime(str_replace('/', '-', $birthdate)));
+
+                // bad american format 
+                $birthdate_insert = $birthdate;
 
                 // db queries to insert data
                 $query1 = "UPDATE `users` SET phone = '$phone', birthdate = '$birthdate_insert', nationality = '$nationality', gender = '$gender', position = 'delegationleader', dietary = '$diet' WHERE email = '$email';";
