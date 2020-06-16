@@ -51,9 +51,9 @@
         ?>
 
         <!-- Preloader -->
-        <div id="preloader">
+        <!-- <div id="preloader">
             <div id="load"><img class="wow fadeInDown" src="../img/plismun19_a_notext.png"></div>
-        </div>
+        </div> -->
 
 
 
@@ -78,28 +78,18 @@
 
             <div class="container">
                 <?php
-                $committees = array("ecosoc", "hrc", "icj", "legal", "sec", "histsec", "unwomen");
-                for ($x = 0; $x < 7; $x++) {
-                    $committee_name = $committees[$x];
-                    $committee_name_display = $committees[$x];
-                    $committee_name_chairtable = $committees[$x];
-
-                    if ($committee_name_display == 'histsec') {
-                        $committee_name_display = 'hsc';
-                    } elseif ($committee_name_display == 'sec') {
-                        $committee_name_display = 'sc';
-                    }
-
-                    if ($committee_name_chairtable == 'historicalsec') {
-                        $committee_name_chairtable = 'histsec';
-                    }
+                $committees = mysqli_query($link, "SELECT abbvname, displayname FROM committees");
+                while ($committee = mysqli_fetch_assoc($committees)) {
+                    $committee_name = $committee['abbvname'];
+                    $committee_name_display = $committee['displayname'];
+                    $committee_name_chairtable = $committee_name;
 
                     ?>
                     <div class="row well well-md">
                         <div class="col-sm-12">
                             <h3 class="inline"><i><?php echo strtoupper($committee_name_display); ?> &nbsp;&nbsp;&nbsp;  </i></h3>
-                            <a class="inline" data-toggle="collapse" data-target="<?php echo '#'.$committee_name_display; ?>" aria-expanded="false"><b>Click to view</b></a>
-                            <div class="collapse" id="<?php echo $committee_name_display; ?>">
+                            <a class="inline" data-toggle="collapse" data-target="<?php echo '#'.$committee_name; ?>" aria-expanded="false"><b>Click to view</b></a>
+                            <div class="collapse" id="<?php echo $committee_name; ?>">
                                 <div class="card card-body">
                                     <table class="table">
                                         <thead>
@@ -116,10 +106,10 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $chairid = mysqli_fetch_assoc(mysqli_query($link, "SELECT userid FROM chairs WHERE position = 'chair1' AND committee = '$committee_name_chairtable'"))['userid'];
+                                            $chairid = mysqli_fetch_assoc(mysqli_query($link, "SELECT userid FROM chairs WHERE position = 'chair1' AND committee = '$committee_name'"))['userid'];
                                             $chair_info = mysqli_fetch_assoc(mysqli_query($link, "SELECT firstname, lastname, email, phone, schoolname, gender, dietary FROM users WHERE id = $chairid"));
 
-                                            $cochairid = mysqli_fetch_assoc(mysqli_query($link, "SELECT userid FROM chairs WHERE position = 'chair2' AND committee = '$committee_name_chairtable'"))['userid'];
+                                            $cochairid = mysqli_fetch_assoc(mysqli_query($link, "SELECT userid FROM chairs WHERE position = 'chair2' AND committee = '$committee_name'"))['userid'];
                                             $cochair_info = mysqli_fetch_assoc(mysqli_query($link, "SELECT firstname, lastname, email, phone, schoolname, gender, dietary FROM users WHERE id = $cochairid"));
                                             ?>
                                             <tr>
@@ -163,10 +153,9 @@
                                         <tbody>
                                             <?php
 
-                                            for ($y = 0; $y < mysqli_num_rows(mysqli_query($link, "SELECT * FROM $committee_name")); $y++) {
-                                                $committee_info = mysqli_fetch_assoc(mysqli_query($link, "SELECT userid, display_country FROM $committee_name LIMIT 1 OFFSET $y"));
-
-                                                $userid = $committee_info['userid'];
+                                            $countries = mysqli_query($link, "SELECT * FROM $committee_name");
+                                            while ($country = mysqli_fetch_assoc($countries)) {
+                                                $userid = $country['userid'];
 
                                                 $delegate_info = mysqli_fetch_assoc(mysqli_query($link, "SELECT delegation FROM delegates WHERE userid = $userid"));
 
@@ -174,13 +163,13 @@
 
                                                 ?>
                                                 <tr>
-                                                    <th scope="row"><?php echo $committee_info['display_country']; ?></th>
+                                                    <th scope="row"><?php echo $country['displayname2']; ?></th>
                                                     <td>
                                                         <?php
-                                                        if ($committee_info['userid'] == 0) {
+                                                        if ($userid == 0) {
                                                             echo '';
                                                         } else {
-                                                            echo $committee_info['userid'];
+                                                            echo $userid;
                                                         }
                                                         ?>
                                                     </td>
