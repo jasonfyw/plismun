@@ -95,7 +95,7 @@
                         <p>We are pleased to inform you that your application to PLISMUN21 has been approved! </p>
                         <p>You have been selected to represent <b>".$display_country."</b> in the <b>".$display_committee." ".$abbvcommittee."</b>. To view your committee, head over to <a href='plismun.com/viewcommittee'>plismun.com/viewcommittee</a><br /><br /></p>
                         <h4>Payment details:</h4>
-                        <p><b>Below you will find the details to which the fee of EUR 37 or CZK 1000 should be paid to <i><u>within 2 weeks of receiving this email</u></i> with your name and 'PLISMUN21' included in the payment note:</b><br /></p>
+                        <p><b>Below you will find the details to which the fee of EUR 37 or CZK 1000 should be paid to <i><u>within 4 weeks of receiving this email</u></i> with your name and 'PLISMUN21' included in the payment note:</b><br /></p>
                         <p>
                             For EUR payments:<br/>
                             Account name: Park Lane International School, a.s.<br/>
@@ -116,7 +116,7 @@
                             Please ensure the payments are <b>net of bank charges</b>
                         </p>
                         <p><b>Using Internet banking, you must select either international wire transfer (non-domestic; you are paying with a foreign currency to a CZK account) or domestic payment (paying CZK to CZK account).</b></p>
-                        <p><b><i>Once the payment has been made, please email a copy of the invoice to <a href='mailto:payments@plismun.com'>payments@plismun.com</a> so we can confirm your payment</i></b><br /></p>
+                        <p><b><i>Once the payment has been made, please email a payment confirmation to <a href='mailto:payments@plismun.com'>payments@plismun.com</a> so we can confirm your payment. If you require an invoice, please let us know.</i></b><br /></p>
                         <p>Thank you for your interest and participation in PLISMUN21, we look forward to seeing you in January!</p>
 
 
