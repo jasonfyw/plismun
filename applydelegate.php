@@ -152,7 +152,7 @@
                 $query1 = "UPDATE `users` SET phone = '$phone', birthdate = '$birthdate_insert', nationality = '$nationality', gender = '$gender', schoolname = '$school', position = 'delegate', dietary = '$diet' WHERE email = '$email';";
                 $result1 = mysqli_query($link, $query1);
 
-                $query2 = "INSERT INTO `delegates` (userid, delegation, choice1committee, choice1country, choice2committee, choice2country, choice3committee, choice3country, experience, motivationletter) VALUES ('$userid', '$delegation', '$committee1', '$country1', '$committee2', '$country2', '$committee3', '$country3', '$experience', '$motivation')";
+                $query2 = "INSERT INTO `delegates` (userid, delegation, choice1committee, choice1country, choice2committee, choice2country, choice3committee, choice3country, experience, motivationletter, email) VALUES ('$userid', '$delegation', '$committee1', '$country1', '$committee2', '$country2', '$committee3', '$country3', '$experience', '$motivation', '$email')";
                 $result2 = mysqli_query($link, $query2);
                 $_SESSION['position'] = 'delegate';
 
