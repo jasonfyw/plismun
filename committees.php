@@ -84,6 +84,8 @@
                     $chair2 = "";
                     $topic1 = $committee["topic1"];
                     $topic2 = $committee["topic2"];
+                    $para1 = $committee["para1"];
+                    $para2 = $committee["para2"];
                     
                     // fetch country names from the respective committee table
                     $countries = mysqli_query($link, "SELECT displayname2 FROM $abbvname");
@@ -111,16 +113,76 @@
                             if (strlen($topic2) == 0) {
                                 ?>
                                 <p><?php echo $topic1; ?></p>
+                                <button class="btn btn-info" data-toggle="modal" data-target="<?php echo '#'.$abbvname.'para1'; ?>" aria-expanded="false">Read more</button>
+                                
+                                <div class="modal fade" id="<?php echo $abbvname.'para1'; ?>" tabindex="10" role="dialog" aria-labelledby="<?php echo $abbvname.'para1label'; ?>" aria-hidden="true" data-backdrop="false">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="<?php echo $abbvname.'para1label'; ?>">Details</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="false">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><b><?php echo $topic1; ?></b></p>
+                                                <p><?php echo $para1; ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <?php
                             } else {
                                 ?>
                                 <p>1. &nbsp;&nbsp;&nbsp; <?php echo $topic1; ?></p>
+                                <button class="btn btn-info" data-toggle="modal" data-target="<?php echo '#'.$abbvname.'para1'; ?>" aria-expanded="false">Read more</button>
+                                <br><br>
                                 <p>2. &nbsp;&nbsp;&nbsp; <?php echo $topic2; ?></p>
+                                <button class="btn btn-info" data-toggle="modal" data-target="<?php echo '#'.$abbvname.'para2'; ?>" aria-expanded="false">Read more</button>
+
+
+                                <div class="modal fade" id="<?php echo $abbvname.'para1'; ?>" tabindex="10" role="dialog" aria-labelledby="<?php echo $abbvname.'para1label'; ?>" aria-hidden="true" data-backdrop="false">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="<?php echo $abbvname.'para1label'; ?>">Details</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="false">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><b><?php echo $topic1; ?></b></p>
+                                                <p><?php echo $para1; ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="<?php echo $abbvname.'para2'; ?>" tabindex="10" role="dialog" aria-labelledby="<?php echo $abbvname.'para2label'; ?>" aria-hidden="true" data-backdrop="false">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="<?php echo $abbvname.'para2label'; ?>">Details</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="false">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><b><?php echo $topic2; ?></b></p>
+                                                <p><?php echo $para2; ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <?php
                             }
                             ?>
 
                             <br><br>
+
+                            <div class="col-lg-2 col-lg-offset-5">
+                                <hr class="marginbot-50">
+                            </div>
 
                             <div class="row">
                                 <div class="col-sm-4 col-sm-offset-4">

@@ -55,6 +55,23 @@
     }
 }
 
+/* ===========================
+--- paragraph modals
+============================ */
+
+.modal {
+    z-index: 1000 !important;
+    position: absolute !important;
+
+    color: #000; 
+}
+.modal .close {
+    padding: 0;
+    margin: 0;
+    position: relative !important;
+    top: -20px;
+    right: 0;
+}
 
 
 /* ===========================
