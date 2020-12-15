@@ -95,7 +95,7 @@
                         <p>We are pleased to inform you that your application to PLISMUN21 has been approved! </p>
                         <p>You have been selected to represent <b>".$display_country."</b> in the <b>".$display_committee." ".$abbvcommittee."</b>. To view your committee, head over to <a href='plismun.com/viewcommittee'>plismun.com/viewcommittee</a><br /><br /></p>
                         <h4>Payment details:</h4>
-                        <p><b>Below you will find the details to which the fee of EUR 37 or CZK 1000 should be paid to <i><u>within 4 weeks of receiving this email</u></i> with your name and 'PLISMUN21' included in the payment note:</b><br /></p>
+                        <p><b>Below you will find the details to which the fee of EUR 10 or CZK 260 should be paid to <i><u>within 4 weeks of receiving this email</u></i> with your name and 'PLISMUN21' included in the payment note:</b><br /></p>
                         <p>
                             For EUR payments:<br/>
                             Account name: Park Lane International School, a.s.<br/>
