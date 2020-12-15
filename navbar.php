@@ -49,7 +49,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">About &nbsp;<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="about">About us</a></li>
-                                <li><a href="prague">Prague</a></li>
+                                <!-- <li><a href="prague">Prague</a></li> -->
                                 <!-- <li><a href="teams">The Team</a></li> -->
                                 <div class="dropdown-divider"></div>
                                 <li><a href="tos">Terms and Conditions</a></li>
@@ -79,7 +79,7 @@
                         <!-- <li><a href="https://drive.google.com/drive/u/3/folders/1QyB6VypqcuFHZCqpKik3SXAte-V1Ngh7">Photos</a></li> -->
                         <!-- <li><a href="schedule">Schedule</a></li> -->
                         <li><a href="committees">Committees</a></li>
-                        <li><a href="partners-en">Partners</a></li>
+                        <!-- <li><a href="partners-en">Partners</a></li> -->
                         <li><a href="contact">Contact</a></li>
 
 
