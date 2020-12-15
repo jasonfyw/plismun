@@ -161,7 +161,7 @@
                             <div class="col-md-4 col-md-offset-4">
                                 <div class="pricing">
                                     <h5>Pricing</h5>
-                                    <p>Chairs and delegates: <b>€37 / CZK1000</b></p>
+                                    <p>Chairs and delegates: <b>€10 / CZK260</b></p>
                                 </div>
                             </div>
                         </div>
