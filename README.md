@@ -13,4 +13,4 @@ Repository of the source code for the **official Park Lane International School 
 
 Written in HTML, CSS, PHP, JS and SQL with the help of Bootstrap, Font Awesome, Ionicons and a heavily modified version of the Squadfree Bootstrap theme by BootstrapMade.
 
-Projected maintained since 2018 for editions PLISMUN19 - PLISMUN21 by Jason Wang.
+Project maintained since 2018 for editions PLISMUN19 - PLISMUN21. Copyright (c) Jason Wang.
