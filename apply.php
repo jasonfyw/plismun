@@ -157,28 +157,28 @@
                     </div>
                     <div class="container">
                         <h2>Choose what to apply as</h2>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-md-4 col-md-offset-4">
                                 <div class="pricing">
                                     <h5>Pricing</h5>
                                     <p>Chairs and delegates: <b>€10 / CZK260</b></p>
                                 </div>
                             </div>
+                        </div> -->
+
+                        <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="PLISMUN 21 has ended and is no longer accepting applications">
                         </div>
 
-                        <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="">
+                        <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="PLISMUN 21 has ended and is no longer accepting applications">
+                            <a href="applydelegate" class="btn btn-info btn-block" id="chooseposition" disabled>Delegate</a>
                         </div>
 
-                        <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="">
-                            <a href="applydelegate" class="btn btn-info btn-block" id="chooseposition" >Delegate</a>
+                        <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="PLISMUN 21 has ended and is no longer accepting applications">
+                            <a href="applydelegation" class="btn btn-info btn-block" id="chooseposition" disabled>Delegation</a>
                         </div>
 
-                        <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="">
-                            <a href="applydelegation" class="btn btn-info btn-block" id="chooseposition" >Delegation</a>
-                        </div>
-
-                        <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="">
-                            <a href="applychair" class="btn btn-info btn-block" id="chooseposition" >Chair</a>
+                        <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="PLISMUN 21 has ended and is no longer accepting applications">
+                            <a href="applychair" class="btn btn-info btn-block" id="chooseposition" disabled>Chair</a>
                         </div>
 
                         <!-- <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="Chairing positions have all been filled and no vacancies are currently available">
@@ -188,7 +188,7 @@
                     <div class="container">
                         <h2>Or view your committee</h2>
                         <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="">
-                            <a href="viewcommittee" class="btn btn-info btn-block" id="" >View Your Committee</a>
+                            <a href="viewcommittee" class="btn btn-info btn-block" id="" disabled>View Your Committee</a>
                         </div>
                     </div>
                 </div>
