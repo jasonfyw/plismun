@@ -408,9 +408,13 @@ hr {
     letter-spacing: 3px;
 }
 
+
 @media (max-width: 768px) {
   .intro .slogan h2 {
     font-size: 48px;
+  }
+  .intro .slogan {
+    padding-top: 7rem;
   }
 }
 

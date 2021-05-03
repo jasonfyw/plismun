@@ -70,37 +70,6 @@ a:focus {
 }
 
 
-/* ===========================
---- Elements
-============================ */
-
-.btn {
-	border-radius: 0;
-    text-transform: uppercase;
-    font-family: Montserrat,sans-serif;
-    font-weight: 400;
-    -webkit-transition: all .3s ease-in-out;
-    -moz-transition: all .3s ease-in-out;
-    transition: all .3s ease-in-out;
-}
-
-
-#text {
-    color: #fff;
-    background: #ffcc00;
-}
-
-#map {
-	height: 500px;
-}
-
-.btn-default:hover,
-.btn-default:focus {
-    border: 1px solid #28c3ab;
-    outline: 0;
-    color: #000;
-    background-color: #28c3ab;
-}
 
 
 /* ===========================

@@ -19,6 +19,7 @@
         <link href="css/animate.css" rel="stylesheet" />
          <!-- Squad theme CSS -->
         <link href="css/pages/apply.css" rel="stylesheet">
+        <link href="css/index.css" rel="stylesheet">
         <link href="color/default.css" rel="stylesheet">
 
         <!-- Global site tag (gtag.js) - Google Analytics -->

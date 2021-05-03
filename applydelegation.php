@@ -27,6 +27,7 @@
 
         <!-- recycling css from signup page because the layout is basically the same and I can't be bothered to make a new file just for this-->
         <link href="css/pages/applyposition.css" rel="stylesheet">
+        <link href="css//index.css" rel="stylesheet">
         <link href="color/default.css" rel="stylesheet">
 
         <!-- Global site tag (gtag.js) - Google Analytics -->

@@ -18,6 +18,7 @@
         <link href="css/animate.css" rel="stylesheet" />
         <!-- css -->
         <link href="css/pages/committees.css" rel="stylesheet">
+        <link href="css/index.css" rel="stylesheet">
         <link href="color/default.css" rel="stylesheet">
 
         <style>

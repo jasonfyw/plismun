@@ -19,6 +19,7 @@
         <link href="css/animate.css" rel="stylesheet" />
          <!-- Squad theme CSS -->
         <link href="css/pages/signup.css" rel="stylesheet">
+        <link href="css/index.css" rel="stylesheet">
         <link href="color/default.css" rel="stylesheet">
 
 
