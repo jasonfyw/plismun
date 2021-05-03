@@ -1,5 +1,5 @@
 # PLISMUN
-![Maintenance](https://img.shields.io/maintenance/yes/2020) ![GitHub last commit](https://img.shields.io/github/last-commit/jasonfyw/plismun)
+![Maintenance](https://img.shields.io/maintenance/yes/2021) ![GitHub last commit](https://img.shields.io/github/last-commit/jasonfyw/plismun)
 
 > Park Lane International School Model United Nations, or PLISMUN for short, is a conference where students aged 13 - 18 discuss topics of global importance by representing countries in a simulation of select committees of the United Nations. Delegations from schools anywhere in the world are invited to participate. 
 
