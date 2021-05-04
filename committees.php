@@ -74,10 +74,13 @@
                 <!-- DETAILS AND COUNTRY MATRIX SIDEMENU THING FOR EVERY COMMITTEE-->
                 <?php
                 $committees = mysqli_query($link, "SELECT * FROM committees");
+                // iterate through each row in committees
                 while ($committee = mysqli_fetch_assoc($committees)) {
                     // fetch committee information from db
                     $abbvname = $committee["abbvname"];
                     $displayname = $committee["displayname"];
+                    // currently chairs are not displayed
+
                     // $difficulty = $committee["difficulty"];
                     // $chair1 = $committee["chair1"];
                     // $chair2 = $committee["chair2"];
@@ -97,12 +100,14 @@
                         <div class="overlay-content">
                             <h2>
                                 <?php 
+                                // display the committee's name with abbreviations for certain committees
                                 echo $displayname; 
                                 if ($abbvname != "legal" && $abbvname != "unwomen") {
                                     echo " (" . strtoupper($abbvname) . ")";
                                 }
                                 ?> 
                             </h2>
+                            <!-- the following tag is a legacy feature from PLISMUN 20 where committees had different difficulty ratings. currently not in use, however, a 'difficulty' column is reserved in the committees db table in the event of future need -->
                             <!-- <h4 data-toggle="tooltip" title="This committee is more suitable for MUNers with less experience and seeking an easier committee to participate in">Beginner Committee <i class="fas fa-info-circle"></i></h4> -->
                             <div class="col-lg-2 col-lg-offset-5">
                                 <hr class="marginbot-50">
@@ -112,6 +117,8 @@
                             <h4>Topic:</h4>
                             <?php 
                             if (strlen($topic2) == 0) {
+                                // some committees only have one topic. this if statement conditionally renders the content depending on if the committee has one or two topics
+                                // for one-topic committees
                                 ?>
                                 <p><?php echo $topic1; ?></p>
                                 <button class="btn btn-info" data-toggle="modal" data-target="<?php echo '#'.$abbvname.'para1'; ?>" aria-expanded="false">Read more</button>
@@ -134,6 +141,7 @@
                                 </div>
                                 <?php
                             } else {
+                                // for two-topic committees
                                 ?>
                                 <p>1. &nbsp;&nbsp;&nbsp; <?php echo $topic1; ?></p>
                                 <button class="btn btn-info" data-toggle="modal" data-target="<?php echo '#'.$abbvname.'para1'; ?>" aria-expanded="false">Read more</button>
