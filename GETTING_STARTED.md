@@ -99,3 +99,9 @@ $ git push
 ```
 
 Alternatively, use the source control UI built-into editors like VS Code.
+
+### Collaborating with others
+
+A disadvantage of directly uploading to the FTP server is that it can result in code conflicts when working with others. The local version will always overwrite the version on the server so different people may have different local versions of the project.
+
+One way to avoid this is to communicate changes to anyone involved, to not work on the same file at once and to **commit any and all changes made**. This way, you can `git pull` and remain up to date with other machines.
