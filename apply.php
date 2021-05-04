@@ -43,10 +43,12 @@
 
         // login form
         if (isset($_POST["submit"])) {
-            // setting inputs to variables
+            // retrieve values for the email and password on login screen when submit button pressed
+            // escapes special characters to protect from sql injections
             $email = mysqli_real_escape_string($link, $_POST['email']);
             $password = mysqli_real_escape_string($link, $_POST['password']);
-
+            
+            // initialise error messages
             $errEmail = '';
             $errPassword = '';
 
@@ -62,7 +64,7 @@
             $emailQuery = "SELECT * FROM `users` WHERE email='$email'";
             $result = mysqli_query($link, $emailQuery);
 
-            // fetching associated password
+            // fetching hashed password associated with email
             $passwordQuery = "SELECT password FROM `users` WHERE email='$email'";
             $passwordResult = mysqli_fetch_assoc(mysqli_query($link, $passwordQuery));
 
@@ -70,8 +72,10 @@
             if(!$errEmail && !$errPassword) {
                 // if user record is present
                 if (mysqli_num_rows($result) >= 1) {
-                    // verify password
+                    // verify password by comparing its hash to the stored value
                     if (password_verify($password, $passwordResult["password"])) {
+                        // set the session data for the logged in user
+                        // this is an inefficient implementation because it queries the db every time; could be done with just one query
                         $_SESSION['id'] = $email;
                         $_SESSION['firstname'] = mysqli_fetch_assoc(mysqli_query($link, "SELECT firstname FROM `users` WHERE email='$email'"))["firstname"];
                         $_SESSION['lastname'] = mysqli_fetch_assoc(mysqli_query($link, "SELECT lastname FROM `users` WHERE email='$email'"))["lastname"];
@@ -100,6 +104,7 @@
         <div id="header"></div>
 
         <?php
+        // if there is no logged in user, display the login form
         if(!isset($_SESSION['id']))
         {
 
@@ -144,6 +149,7 @@
             <?php } ?>
 
         <?php
+        // if there is a session with a valid id (hence logged in), display options to apply for positions
         if (isset($_SESSION['id'])) {
 
             ?>

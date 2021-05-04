@@ -515,6 +515,9 @@
 
                             <div class="row">
                                 <?php 
+                                // three committee choices, each with their own drop down menu
+                                // committees and respective countries retrieved from database
+                                
                                 for ($x = 1; $x <= 3; $x++) {
                                 ?>
                                 <div class="col-sm-4">

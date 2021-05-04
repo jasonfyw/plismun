@@ -54,6 +54,7 @@
         require_once('class.phpmailer.php');
         require_once('application_mail_config.php');
 
+        // execute on form submission
         if (isset($_POST["submit"])) {
             $email = $_SESSION['id'];
             // userid from `users`
@@ -155,8 +156,8 @@
 
                 $mail = new PHPMailer();
 
-                // PHPMailer email
-                // html body
+                // email the application details to secretariat and archive email using PHPMailer
+                // email body created using html
                 $body =
                     "<h2>Chair application</h2>
                     <p><b>Name:</b> ".$_SESSION['firstname']. ' '.$_SESSION['lastname']."</p>
@@ -176,7 +177,7 @@
                     <p><b>Motivation letter: </b> $motivation</p>";
 
                 $mail->IsSMTP(); // telling the class to use SMTP
-                $mail->SMTPAuth = true;                  // enable SMTP authentication
+                $mail->SMTPAuth = true; // enable SMTP authentication
                 $mail->Host = $host; // sets the SMTP server
                 $mail->Port = $port;
 
@@ -193,10 +194,11 @@
 
 
 
-                // db queries to insert data
+                // db query to update user information
                 $query1 = "UPDATE `users` SET phone = '$phone', birthdate = '$birthdate_insert', nationality = '$nationality', gender = '$gender', schoolname = '$school', position = 'chair', dietary = '$diet' WHERE email = '$email';";
                 $result1 = mysqli_query($link, $query1);
 
+                // db query to add entry in chairs table (their assigned committee is changed later upon approval)
                 $query2 = "INSERT INTO `chairs` (userid, choice1position, choice1committee, choice2position, choice2committee, choice3position, choice3committee, experience, motivationletter) VALUES ('$userid', '$position1', '$committee1', '$position2', '$committee2', '$position3', '$committee3', '$experience', '$motivation')";
                 $result2 = mysqli_query($link, $query2);
 
@@ -554,6 +556,9 @@
 
                             <div class="row">
                                 <?php
+
+                                // three committee choices, each with their own drop down menu
+                                // committees and respective countries retrieved from database
                                 
                                 for ($x = 1; $x <= 3; $x++) {
                                     ?>
@@ -569,16 +574,20 @@
                                                     while ($committee = mysqli_fetch_assoc($committees)) {
                                                         $abbvname = $committee["abbvname"];
                                                         $displayname = $committee["displayname"];
+
                                                         ?>
                                                         <option value="<?php echo $abbvname; ?>" <?php if ($_POST["committee".strval($x)] == $abbvname) echo 'selected'; ?>>
                                                             <?php 
+                                                            // display committee name
                                                             echo $displayname; 
+                                                            // include abbreviated name for certain committees
                                                             if ($abbvname != "legal" && $abbvname != "unwomen") {
                                                                 echo " (" . strtoupper($abbvname) . ")";
                                                             }
                                                             ?> 
                                                         </option>
                                                         <?php
+
                                                     }
                                                     ?>
                                                 </select>
