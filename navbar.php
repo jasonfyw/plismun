@@ -83,6 +83,13 @@
                         <li><a href="contact">Contact</a></li>
 
 
+
+                        <!-- 
+
+                        the following is rendered depending on the session data, allowing distinctions between users who are logged in or not
+
+                         -->
+
                         <!-- not logged in -->
                         <?php
                         if(!isset($_SESSION['id']))

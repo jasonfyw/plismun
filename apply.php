@@ -173,6 +173,14 @@
                             </div>
                         </div> -->
 
+
+
+                        <!-- 
+
+                        when opening applications for the following positions, remove the 'disabled' attribute on the <a> tag and set the 'data-title' attribute on the <div> tag to empty
+
+                         -->
+
                         <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="PLISMUN 21 has ended and is no longer accepting applications">
                         </div>
 
