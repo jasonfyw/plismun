@@ -36,7 +36,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
                     <a class="navbar-brand js-scroll-trigger" href="index">
-                        <h1>PLISMUN 2021</h1>
+                        <h1>PLISMUN 2022</h1>
                     </a>
                 </div>
 
