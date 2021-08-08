@@ -102,7 +102,7 @@
                                 <?php 
                                 // display the committee's name with abbreviations for certain committees
                                 echo $displayname; 
-                                if ($abbvname != "legal" && $abbvname != "unwomen") {
+                                if ($abbvname != "legal" && $abbvname != "unwomen" && $abbvname != "arab" && $abbvname != "paris") {
                                     echo " (" . strtoupper($abbvname) . ")";
                                 }
                                 ?> 
@@ -299,7 +299,7 @@
                                                 <h3>
                                                 <?php 
                                                 echo $displayname; 
-                                                if ($abbvname != "legal" && $abbvname != "unwomen") {
+                                                if ($abbvname != "legal" && $abbvname != "unwomen" && $abbvname != "arab" && $abbvname != "paris") {
                                                     echo " (" . strtoupper($abbvname) . ")";
                                                 }
                                                 ?> 
