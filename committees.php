@@ -92,7 +92,7 @@
                     $para2 = $committee["para2"];
                     
                     // fetch country names from the respective committee table
-                    $countries = mysqli_query($link, "SELECT displayname2 FROM $abbvname");
+                    $countries = mysqli_query($link, "SELECT displayname FROM $abbvname");
                 ?>
 
                     <div id="<?php echo $abbvname; ?>info" class="overlay">
@@ -211,7 +211,7 @@
                                         <?php 
                                             while ($country = mysqli_fetch_assoc($countries)) {
                                                 ?>
-                                                <tr><td><?php echo $country['displayname2']; ?></td></tr>
+                                                <tr><td><?php echo $country['displayname']; ?></td></tr>
                                                 <?php
                                             }
                                         ?>
