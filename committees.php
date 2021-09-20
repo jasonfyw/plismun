@@ -8,7 +8,7 @@
 
         <link rel="shortcut icon" type="image/x-icon" href="img/plismun19_a_favicon.png">
 
-        <title>Committees – PLISMUN 2021</title>
+        <title>Committees – PLISMUN 2022</title>
 
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -81,7 +81,7 @@
                     $displayname = $committee["displayname"];
                     // currently chairs are not displayed
 
-                    // $difficulty = $committee["difficulty"];
+                    $difficulty = $committee["difficulty"];
                     // $chair1 = $committee["chair1"];
                     // $chair2 = $committee["chair2"];
                     $chair1 = "<i>TBD</i>";
@@ -109,6 +109,17 @@
                             </h2>
                             <!-- the following tag is a legacy feature from PLISMUN 20 where committees had different difficulty ratings. currently not in use, however, a 'difficulty' column is reserved in the committees db table in the event of future need -->
                             <!-- <h4 data-toggle="tooltip" title="This committee is more suitable for MUNers with less experience and seeking an easier committee to participate in">Beginner Committee <i class="fas fa-info-circle"></i></h4> -->
+                            
+
+                            <?php if($difficulty == "beginner") : ?>
+                                <h4 data-toggle="tooltip" title="This committee is more suitable for MUNers with less experience and seeking an easier committee to participate in">Beginner Committee <i class="fas fa-info-circle"></i></h4>
+                            <?php elseif($difficulty == "intermediate") : ?>
+                                <h4 data-toggle="tooltip" title="This committee is more suitable for MUNers with more experience and seeking an intermediate committee to participate in">Intermediate Committee <i class="fas fa-info-circle"></i></h4>
+                            <?php elseif($difficulty == "advanced") : ?>
+                                <h4 data-toggle="tooltip" title="This committee is more suitable for MUNers with a lot of experience and seeking a challenging committee to participate in">Advanced Committee <i class="fas fa-info-circle"></i></h4>
+                            <?php endif; ?>
+
+
                             <div class="col-lg-2 col-lg-offset-5">
                                 <hr class="marginbot-50">
                             </div>
@@ -211,7 +222,7 @@
                                         <?php 
                                             while ($country = mysqli_fetch_assoc($countries)) {
                                                 ?>
-                                                <tr><td><?php echo $country['displayname']; ?></td></tr>
+                                                <tr><td><?php echo $country['displayname'] ?></td></tr>
                                                 <?php
                                             }
                                         ?>
