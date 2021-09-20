@@ -188,6 +188,8 @@
                             </li>
                         <?php } ?>
 
+                        <li><a href="partners-en">Partners</a></li>
+
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
