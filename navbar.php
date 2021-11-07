@@ -52,6 +52,7 @@
                                 <!-- <li><a href="prague">Prague</a></li> -->
                                 <!-- <li><a href="teams">The Team</a></li> -->
                                 <div class="dropdown-divider"></div>
+                                <li><a href="accommodation-travel">Accommodation & travel</a></li>
                                 <li><a href="tos">Terms and Conditions</a></li>
                                 <li><a href="privacy">Privacy Policy</a></li>
                                 <li><a href="credits">Website Credits</a></li>
