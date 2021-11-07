@@ -8,7 +8,7 @@
 
         <link rel="shortcut icon" type="image/x-icon" href="../img/plismun19_a_favicon.png">
 
-        <title>PLISMUN 2020</title>
+        <title>PLISMUN 2022</title>
 
         <!-- Bootstrap Core CSS -->
 
@@ -93,6 +93,11 @@
                                 <th scope="col">Dietary</th>
                                 <th scope="col">Committee</th>
                                 <th scope="col">Country</th>
+                                <th scope="col">Birthdate</th>
+                                <th scope="col">Nationality</th>
+                                <th scope="col">Choice 1</th>
+                                <th scope="col">Choice 2</th>
+                                <th scope="col">Choice 3</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -101,10 +106,10 @@
                             $accepted_delegates = 0;
 
                             for ($y = 0; $y < mysqli_num_rows(mysqli_query($link, "SELECT * FROM delegates")); $y++) {
-                                $delegate_info = mysqli_fetch_assoc(mysqli_query($link, "SELECT userid, delegation, committee, country FROM delegates LIMIT 1 OFFSET $y"));
+                                $delegate_info = mysqli_fetch_assoc(mysqli_query($link, "SELECT userid, delegation, committee, country, choice1committee, choice1country, choice2committee, choice2country, choice3committee, choice3country FROM delegates LIMIT 1 OFFSET $y"));
                                 $userid = $delegate_info['userid'];
 
-                                $user_info = mysqli_fetch_assoc(mysqli_query($link, "SELECT firstname, lastname, email, phone, schoolname, gender, dietary FROM users WHERE id = $userid"));
+                                $user_info = mysqli_fetch_assoc(mysqli_query($link, "SELECT firstname, lastname, email, phone, schoolname, gender, dietary, birthdate, nationality FROM users WHERE id = $userid"));
 
                                 ?>
                                 <tr>
@@ -134,6 +139,11 @@
                                     <td><?php echo $user_info['dietary']; ?></td>
                                     <td><?php echo $delegate_info['committee']; ?></td>
                                     <td><?php echo $delegate_info['country']; ?></td>
+                                    <td><?php echo $user_info['birthdate']; ?></td>
+                                    <td><?php echo $user_info['nationality']; ?></td>
+                                    <td><?php echo $delegate_info['choice1committee'] . " | " . $delegate_info['choice1country']; ?></td>
+                                    <td><?php echo $delegate_info['choice2committee'] . " | " . $delegate_info['choice2country']; ?></td>
+                                    <td><?php echo $delegate_info['choice3committee'] . " | " . $delegate_info['choice3country']; ?></td>
                                 </tr>
                                 <?php
 

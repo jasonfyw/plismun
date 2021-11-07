@@ -89,7 +89,7 @@
 
             $address = 'secretariat@plismun.com';
             $mail->AddAddress($address);
-            $address2 = 'pupil.jason.wang@parklane-is.com';
+            $address2 = 'pupil.eliska.hovorkova@parklane-is.com';
             $mail->AddCC($address2);
             $address3 = 'archive@plismun.com';
             $mail->AddBSS($address3);

@@ -9,7 +9,7 @@
 
         <link rel="shortcut icon" type="image/x-icon" href="img/plismun19_a_favicon.png">
 
-        <title>View Committee – PLISMUN 2021</title>
+        <title>View Committee – PLISMUN 2022</title>
 
         <!-- Bootstrap Core CSS -->
 

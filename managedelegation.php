@@ -9,7 +9,7 @@
 
         <link rel="shortcut icon" type="image/x-icon" href="img/plismun19_a_favicon.png">
 
-        <title>Manage Delegation – PLISMUN 2021</title>
+        <title>Manage Delegation – PLISMUN 2022</title>
 
         <!-- Bootstrap Core CSS -->
 

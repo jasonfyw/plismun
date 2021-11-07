@@ -79,7 +79,7 @@
                     $display_country = mysqli_fetch_assoc(mysqli_query($link, "SELECT displayname FROM $committee WHERE countrycode = '$country'"))['displayname'];
 
                     $display_committee = mysqli_fetch_assoc(mysqli_query($link, "SELECT displayname FROM committees WHERE abbvname = '$committee'"))['displayname'];
-                    if ($committee != 'legal' && $committee != 'unwomen') {
+                    if ($committee != 'legal' && $committee != 'unwomen' && $committee != 'paris' && $committee != 'arab') {
                         $abbvcommittee = "(".strtoupper($committee).")";
                     }
 
@@ -93,10 +93,10 @@
                         "<h2>Your delegate application has been accepted by the approval team!</h2>
 
                         <p>Dear ".$delegate_info['firstname']. ' ' .$delegate_info['lastname'].", </p>
-                        <p>We are pleased to inform you that your application to PLISMUN21 has been approved! </p>
+                        <p>We are pleased to inform you that your application to PLISMUN22 has been approved! </p>
                         <p>You have been selected to represent <b>".$display_country."</b> in the <b>".$display_committee." ".$abbvcommittee."</b>. To view your committee, head over to <a href='plismun.com/viewcommittee'>plismun.com/viewcommittee</a><br /><br /></p>
                         <h4>Payment details:</h4>
-                        <p><b>Below you will find the details to which the fee of EUR 10 or CZK 260 should be paid to <i><u>within 4 weeks of receiving this email</u></i> with your name and 'PLISMUN21' included in the payment note:</b><br /></p>
+                        <p><b>Below you will find the details to which the fee of EUR 43 or CZK 1100 should be paid to <i><u>within 4 weeks of receiving this email</u></i> with your name and 'PLISMUN22' included in the payment note:</b><br /></p>
                         <p>
                             For EUR payments:<br/>
                             Account name: Park Lane International School, a.s.<br/>
@@ -113,12 +113,12 @@
                             CZK Account number: 2107914717/2700<br />
                         </p>
                         <p>
-                            The variable code for both is <b>0219</b><br/>
+                            The variable code for both is <b>220101</b><br/>
                             Please ensure the payments are <b>net of bank charges</b>
                         </p>
                         <p><b>Using Internet banking, you must select either international wire transfer (non-domestic; you are paying with a foreign currency to a CZK account) or domestic payment (paying CZK to CZK account).</b></p>
                         <p><b><i>Once the payment has been made, please email a payment confirmation to <a href='mailto:payments@plismun.com'>payments@plismun.com</a> so we can confirm your payment. If you require an invoice, please let us know.</i></b><br /></p>
-                        <p>Thank you for your interest and participation in PLISMUN21, we look forward to seeing you in January!</p>
+                        <p>Thank you for your interest and participation in PLISMUN22, we look forward to seeing you in January!</p>
 
 
 
@@ -138,7 +138,7 @@
 
                     // $mail->AddReplyTo("name@yourdomain.com","First Last");
 
-                    $mail->Subject = "Your PLISMUN21 application has been accepted!";
+                    $mail->Subject = "Your PLISMUN'22 application has been accepted!";
 
 
                     $mail->MsgHTML($body);
@@ -169,9 +169,9 @@
                     "<h2>Your delegate application has been rejected</h2>
 
                     <p>Dear ".$delegate_info['firstname']. ' ' .$delegate_info['lastname'].", </p>
-                    <p>It is our regret to inform you that your delegate application for PLISMUN21 has not been approved. </p>
+                    <p>It is our regret to inform you that your delegate application for PLISMUN22 has not been approved. </p>
                     <p>If you would like to contact us regarding this decision, kindly email us at <a href='mailto:secretariat@plismun.com'>secretariat@plismun.com</a> so we may discuss further options</p>
-                    <p>Thank you for your interest in PLISMUN21!</p>
+                    <p>Thank you for your interest in PLISMUN22!</p>
 
 
 
@@ -190,7 +190,7 @@
 
                 $mail->SetFrom($username, 'PLISMUN Notification');
 
-                $mail->Subject = "Your PLISMUN21 application has been rejected";
+                $mail->Subject = "Your PLISMUN22 application has been rejected";
 
 
                 $mail->MsgHTML($body);
@@ -199,16 +199,16 @@
                 $mail->AddAddress($address);
 
                 if ($updatedelegate) {
-                    $verdictresult = '<div class="alert alert-success">The records have been updated. Please follow up with a manual email to the deleate (<a href="mailto:'.$address.'">'.$address.'</a>)</div>';
+                    $verdictresult = '<div class="alert alert-success">The records have been updated. Please follow up with a manual email to the delegate (<a href="mailto:'.$address.'">'.$address.'</a>)</div>';
                 }
 
-                // if ($updatedelegate) {
-                //     if(!$mail->Send()) {
-                //         $verdictresult = '<div class="alert alert-danger">An error occurred. Please try again. The records have been updated but the delegate has not been emailed</div>';
-                //     } else {
-                //         $verdictresult = '<div class="alert alert-success">Verdict delivered successfully. The delegate has been notified via email</div>';
-                //     }
-                // }
+                if ($updatedelegate) {
+                    if(!$mail->Send()) {
+                       $verdictresult = '<div class="alert alert-danger">An error occurred. Please try again. The records have been updated but the delegate has not been emailed</div>';
+                    } else {
+                        $verdictresult = '<div class="alert alert-success">Verdict delivered successfully. The delegate has been notified via email</div>';
+                    }
+                }
             }
         }
 
@@ -252,7 +252,7 @@
             while ($delegate = mysqli_fetch_assoc($alldelegates)) {
                 if ($delegate['committee'] == '' && $delegate['country'] == '') {
                     $userid = $delegate['userid'];
-                    $user = mysqli_fetch_assoc(mysqli_query($link, "SELECT firstname, lastname, schoolname FROM users WHERE id=$userid"));
+                    $user = mysqli_fetch_assoc(mysqli_query($link, "SELECT firstname, lastname, schoolname, birthdate, nationality FROM users WHERE id=$userid"));
 
                     $choice1country = mysqli_fetch_assoc(mysqli_query($link, "SELECT displayname2 FROM ".$delegate['choice1committee']. " WHERE countrycode = '".$delegate['choice1country']."'"))['displayname2'];
                     $choice2country = mysqli_fetch_assoc(mysqli_query($link, "SELECT displayname2 FROM ".$delegate['choice2committee']. " WHERE countrycode = '".$delegate['choice2country']."'"))['displayname2'];;
@@ -292,6 +292,14 @@
                                             <h4><?php echo $delegate['delegation']; ?></h4>
                                         </div>
                                     </div>
+                                    <div class="app-personal row">
+                                        <div class="col-sm-3">
+                                            <p><i>Birth date:</i></p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <h4><?php echo $user['birthdate']; ?></h4>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="col-sm-6">
@@ -323,6 +331,14 @@
                                             <h4 class="inline"><?php echo $delegate['choice3committee']; ?></h4>
                                             <p class="inline"> &nbsp;&nbsp; –– &nbsp;&nbsp; </p>
                                             <h6 class="inline"><?php echo $choice3country; ?></h6>
+                                        </div>
+                                    </div>
+                                    <div class="app-personal row">
+                                        <div class="col-sm-3">
+                                            <p><i>Nationality:</i></p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <h4><?php echo $user['nationality']; ?></h4>
                                         </div>
                                     </div>
                                 </div>
