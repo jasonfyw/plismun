@@ -82,17 +82,18 @@
                     // currently chairs are not displayed
 
                     $difficulty = $committee["difficulty"];
-                    // $chair1 = $committee["chair1"];
-                    // $chair2 = $committee["chair2"];
-                    $chair1 = "<i>TBD</i>";
-                    $chair2 = "";
+                    $chair1 = $committee["chair1"];
+                    $chair2 = $committee["chair2"];
+                    $committees_chairs = mysqli_query($link, "SELECT firstname, lastname FROM users WHERE id = $chair1 OR id = $chair2");
+                    //$chair1 = "<i>TBD</i>";
+                    //$chair2 = "";
                     $topic1 = $committee["topic1"];
                     $topic2 = $committee["topic2"];
                     $para1 = $committee["para1"];
                     $para2 = $committee["para2"];
                     
                     // fetch country names from the respective committee table
-                    $countries = mysqli_query($link, "SELECT displayname FROM $abbvname");
+                    $countries = mysqli_query($link, "SELECT displayname,country_difficulty FROM $abbvname");
                 ?>
 
                     <div id="<?php echo $abbvname; ?>info" class="overlay">
@@ -206,9 +207,17 @@
 
                             <div class="row">
                                 <div class="col-sm-4 col-sm-offset-4">
-                                    <h4>Chairs</h4>
-                                    <p><?php echo $chair1; ?></p>
-                                    <p><?php echo $chair2; ?></p>
+                                    <h4>Chairs</h4> <?php
+                                    if (mysqli_num_rows($committees_chairs) != 0) {
+                                        while ($chairs = mysqli_fetch_assoc($committees_chairs)) { ?>
+                                            <p><?php echo $chairs["firstname"]." ".$chairs["lastname"]; ?></p> <!-- <p><?php echo $chair2; ?></p> -->
+                                    <?php 
+                                        } 
+                                    }
+                                    else {
+                                        echo "<i>TBD</i>";
+                                    }
+                                    ?>
                                 </div>
                             </div>
 
@@ -217,18 +226,43 @@
                             <h4>Country matrix:</h4>
                             <div class="col-lg-4 col-lg-offset-4">
                                 <!-- <p><i>Coming soon</i></p> -->
-                                <table class="table">
-                                    <tbody>
-                                        <?php 
-                                            while ($country = mysqli_fetch_assoc($countries)) {
+                                <?php
+                                    $levels = array("advanced","intermediate","beginner");
+                                    if ($committee["abbvname"] != "icj") {
+                                        foreach ($levels as $level){
+                                            $countries = mysqli_query($link, "SELECT displayname,country_difficulty FROM $abbvname");
+                                            echo '<table class="table">';
+                                                echo '<tbody>';
+                                                    echo '<h5>',$level,'</h5>' ;
+                                                    while ($country = mysqli_fetch_assoc($countries)) {
+                                                        if ($country['country_difficulty'] == $level){
+                                                            echo "<tr><td>",$country['displayname'],"</td></tr>";
+                                                        };
+                                                    };
+                                                    echo '<tr><td></td></tr>';
+                                                echo '</tbody>';
+                                            echo '</table>';
+                                        }
+                                    }
+                                    else { ?>
+                                        <table class="table">
+                                            <tbody>
+                                                <?php 
+                                                    while ($country = mysqli_fetch_assoc($countries)) {
+                                                        ?>
+                                                        <tr><td><?php echo $country['displayname']; ?></td></tr>
+                                                        <?php
+                                                    }
                                                 ?>
-                                                <tr><td><?php echo $country['displayname'] ?></td></tr>
-                                                <?php
-                                            }
-                                        ?>
-                                        <tr><td></td></tr>
-                                    </tbody>
-                                </table>
+                                                <tr><td></td></tr>
+                                            </tbody>
+                                        </table>
+                                    <?php
+                                    }
+                                ?>
+
+                                <tr><td></td></tr>
+
                                 <br><br><br><br>
                             </div>
 
