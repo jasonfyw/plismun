@@ -8,7 +8,7 @@
 
         <link rel="shortcut icon" type="image/x-icon" href="img/plismun19_a_favicon.png">
 
-        <title>Delegate Application – PLISMUN 2021</title>
+        <title>Delegate Application – PLISMUN 2022</title>
 
         <!-- Bootstrap Core CSS -->
 
@@ -60,7 +60,7 @@
             $birthdate = $_POST['birthdate'];
 
             $nationality = $_POST['nationality'];
-            $diet = 'n/a'; // remove dietary requirement for online 
+            $diet = $_POST['diet']; //'n/a'; remove dietary requirement for online 
 
             $phone = str_replace(' ', '', mysqli_real_escape_string($link, $_POST['phonenum']));
             $gender = $_POST['gender'];
@@ -83,9 +83,9 @@
             if (!$_POST['nationality']) {
                 $errNationality = 'Please enter a valid nationality';
             }
-            // if (!$_POST['diet']) {
-            //     $errDiet = 'Please confirm your dietary preference';
-            // }
+            if (!$_POST['diet']) {
+                $errDiet = 'Please confirm your dietary preference';
+            }
 
             if(!$_POST['gender']) {
                 $errGender = 'Please select a gender';
@@ -252,6 +252,7 @@
                                             <select class="selectpicker" name="gender" title="Select a gender" value="<?php echo $gender; ?>">
                                                 <option value="male" <?php if ($_POST['gender'] == "male") echo 'selected'; ?>>Male</option>
                                                 <option value="female"  <?php if ($_POST['gender'] == "female") echo 'selected'; ?>>Female</option>
+                                                <!-- <option value="other"  <?php //if ($_POST['gender'] == "other") echo 'other'; ?>>other</option> -->
                                             </select>
                                             <?php echo "<p class='text-danger'><b>$errGender</b></p>"; ?>
                                         </div>
@@ -465,7 +466,7 @@
                                             <?php echo "<p class='text-danger'><b>$errSchool</b></p>"; ?>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-md-6 form-group row">
+                                    <div class="col-md-6 form-group row">
                                         <label class="control-label col-sm-4" for="diet">Dietary requirements: </label>
                                         <div class="col-md-8">
                                             <select class="selectpicker" name="diet" title="Select one" value="<?php //echo $diet; ?>">
@@ -473,9 +474,9 @@
                                                 <option value="vegetarian" <?php //if ($_POST['diet'] == "vegetarian") echo 'selected'; ?>>Vegetarian</option>
                                                 <option value="vegan" <?php //if ($_POST['diet'] == "vegan") echo 'selected'; ?>>Vegan</option>
                                             </select>
-                                            <?php //echo "<p class='text-danger'><b>$errDiet</b></p>"; ?>
+                                            <?php echo "<p class='text-danger'><b>$errDiet</b></p>"; ?>
                                         </div>
-                                    </div> -->
+                                    </div>
                                     <div class="col-md-6 form-group row">
                                         <label class="control-label col-sm-4" for="delegation" data-toggle="tooltip" title="If you are going as a school, you can select the delegation created by your club teacher, otherwise, select 'None'">Delegation <i class="fas fa-info-circle"></i>: </label>
                                         <div class="col-md-8">
@@ -540,7 +541,7 @@
                                                     <option value="<?php echo $abbvname; ?>" <?php if ($_POST["committee".strval($x)] == $abbvname) echo 'selected'; ?>>
                                                         <?php 
                                                         echo $displayname; 
-                                                        if ($abbvname != "legal" && $abbvname != "unwomen") {
+                                                        if ($abbvname != "legal" && $abbvname != "unwomen" && $abbvname != "paris" && $abbvname != "arab") {
                                                             echo " (" . strtoupper($abbvname) . ")";
                                                         }
                                                         ?> 
@@ -617,7 +618,7 @@
 
                             <div class="row">
                                 <div class="col-sm-10 col-sm-offset-1 row">
-                                    <label class="control-label col-sm-3" for="motivation">Why do you want to participate as a delegate at PLISMUN21? (~100 words)</label>
+                                    <label class="control-label col-sm-3" for="motivation">Why do you want to participate as a delegate at PLISMUN22? (~100 words)</label>
                                     <div class="col-sm-9">
                                         <textarea type="text" class="form-control" id="motivation" name="motivation" rows="5"><?php echo $motivation; ?></textarea>
                                         <?php echo "<p class='text-danger'>$errMotivation</p>";?>

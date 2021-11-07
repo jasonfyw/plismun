@@ -8,7 +8,7 @@
 
         <link rel="shortcut icon" type="image/x-icon" href="img/plismun19_a_favicon.png">
 
-        <title>Apply – PLISMUN 2021</title>
+        <title>Apply – PLISMUN 2022</title>
 
         <!-- Bootstrap Core CSS -->
 
@@ -203,7 +203,7 @@
                     <div class="container">
                         <h2>Or view your committee</h2>
                         <div class="col-md-4 col-md-offset-4" id="disabled-button-wrapper" data-placement="top" data-toggle="tooltip" data-title="">
-                            <a href="viewcommittee" class="btn btn-info btn-block" id="" disabled>View Your Committee</a>
+                            <a href="viewcommittee" class="btn btn-info btn-block" id="">View Your Committee</a>
                         </div>
                     </div>
                 </div>

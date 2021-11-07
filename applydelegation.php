@@ -8,7 +8,7 @@
 
         <link rel="shortcut icon" type="image/x-icon" href="img/plismun19_a_favicon.png">
 
-        <title>Delegation Application – PLISMUN 2021</title>
+        <title>Delegation Application – PLISMUN 2022</title>
 
         <!-- Bootstrap Core CSS -->
 
@@ -60,7 +60,7 @@
             $birthdate = $_POST['birthdate'];
 
             $nationality = $_POST['nationality'];
-            $diet = 'n/a'; // remove dietary requirement for online
+            $diet = $_POST['diet']; //'n/a';  remove dietary requirement for online
 
             $phone = str_replace(' ', '', mysqli_real_escape_string($link, $_POST['phonenum']));
             $gender = $_POST['gender'];
@@ -76,9 +76,9 @@
             if (!$_POST['nationality']) {
                 $errNationality = 'Please enter a valid nationality';
             }
-            // if (!$_POST['diet']) {
-            //     $errDiet = 'Please confirm your dietary preference';
-            // }
+            if (!$_POST['diet']) {
+                $errDiet = 'Please confirm your dietary preference';
+            }
 
             if(!$_POST['phonenum']){
                 $errPhonenum = 'Please enter a phone number';
@@ -431,17 +431,17 @@
                                             <?php echo "<p class='text-danger'><b>$errNationality</b></p>"; ?>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-md-6 form-group row">
+                                    <div class="col-md-6 form-group row">
                                         <label class="control-label col-sm-4" for="diet">Dietary requirements: </label>
                                         <div class="col-md-8">
-                                            <select class="selectpicker" name="diet" title="Select one" value="<?php //echo $diet; ?>">
-                                                <option value="none" <?php //if ($_POST['diet'] == "none") echo 'selected'; ?>>None</option>
-                                                <option value="vegetarian" <?php //if ($_POST['diet'] == "vegetarian") echo 'selected'; ?>>Vegetarian</option>
-                                                <option value="vegan" <?php //if ($_POST['diet'] == "vegan") echo 'selected'; ?>>Vegan</option>
+                                            <select class="selectpicker" name="diet" title="Select one" value="<?php echo $diet; ?>">
+                                                <option value="none" <?php if ($_POST['diet'] == "none") echo 'selected'; ?>>None</option>
+                                                <option value="vegetarian" <?php if ($_POST['diet'] == "vegetarian") echo 'selected'; ?>>Vegetarian</option>
+                                                <option value="vegan" <?php if ($_POST['diet'] == "vegan") echo 'selected'; ?>>Vegan</option>
                                             </select>
-                                            <?php //echo "<p class='text-danger'><b>$errDiet</b></p>"; ?>
+                                            <?php echo "<p class='text-danger'><b>$errDiet</b></p>"; ?>
                                         </div>
-                                    </div> -->
+                                    </div>
 
                                 </div>
 
