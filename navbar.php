@@ -52,7 +52,7 @@
                                 <!-- <li><a href="prague">Prague</a></li> -->
                                 <!-- <li><a href="teams">The Team</a></li> -->
                                 <div class="dropdown-divider"></div>
-                                <li><a href="accommodation-travel">Accommodation & travel</a></li>
+                                <!--<li><a href="accommodation-travel">Accommodation & travel</a></li>-->
                                 <li><a href="tos">Terms and Conditions</a></li>
                                 <li><a href="privacy">Privacy Policy</a></li>
                                 <li><a href="credits">Website Credits</a></li>
@@ -78,9 +78,9 @@
                             </ul>
                         </li> -->
                         <!-- <li><a href="https://drive.google.com/drive/u/3/folders/1QyB6VypqcuFHZCqpKik3SXAte-V1Ngh7">Photos</a></li> -->
-                        <!-- <li><a href="schedule">Schedule</a></li> -->
+                        <!--<li><a href="schedule">Schedule</a></li>-->
                         <li><a href="committees">Committees</a></li>
-                        <!-- <li><a href="partners-en">Partners</a></li> -->
+                        <li><a href="partners-en">Partners</a></li>
                         <li><a href="contact">Contact</a></li>
 
 
@@ -189,7 +189,6 @@
                             </li>
                         <?php } ?>
 
-                        <li><a href="partners-en">Partners</a></li>
 
                     </ul>
                 </div>

@@ -106,7 +106,7 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $chairid = mysqli_fetch_assoc(mysqli_query($link, "SELECT userid FROM chairs WHERE position = 'chair' AND committee = '$committee_name'"))['userid'];
+                                            $chairid = mysqli_fetch_assoc(mysqli_query($link, "SELECT userid FROM chairs WHERE position = 'chair1' AND committee = '$committee_name'"))['userid'];
                                             $chair_info = mysqli_fetch_assoc(mysqli_query($link, "SELECT firstname, lastname, email, phone, schoolname, gender, dietary FROM users WHERE id = $chairid"));
 
                                             $cochairid = mysqli_fetch_assoc(mysqli_query($link, "SELECT userid FROM chairs WHERE position = 'chair2' AND committee = '$committee_name'"))['userid'];
@@ -176,7 +176,7 @@
                                                     <td><?php echo $user_info['firstname'].' '.$user_info['lastname']; ?></td>
                                                     <td><?php echo $user_info['email']; ?></td>
                                                     <td><?php echo $user_info['phone']; ?></td>
-                                                    <td><?php echo $delegate_info['delegation']; ?></td>
+                                                    <td><?php if ($userid == 0){echo '';} else{echo $delegate_info['delegation']; }?></td>
                                                     <td><?php echo $user_info['schoolname']; ?></td>
                                                     <td><?php echo $user_info['gender']; ?></td>
                                                     <td><?php echo $user_info['dietary']; ?></td>

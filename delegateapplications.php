@@ -413,7 +413,7 @@
                                                     <option value="<?php echo $abbvname; ?>">
                                                         <?php 
                                                         echo $displayname; 
-                                                        if ($abbvname != "legal" && $abbvname != "unwomen") {
+                                                        if ($abbvname != "legal" && $abbvname != "unwomen" && $abbvname != "arab" && $abbvname != "paris") {
                                                             echo " (" . strtoupper($abbvname) . ")";
                                                         }
                                                         ?> 

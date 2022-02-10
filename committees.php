@@ -118,8 +118,7 @@
                                 <h4 data-toggle="tooltip" title="This committee is more suitable for MUNers with more experience and seeking an intermediate committee to participate in">Intermediate Committee <i class="fas fa-info-circle"></i></h4>
                             <?php elseif($difficulty == "advanced") : ?>
                                 <h4 data-toggle="tooltip" title="This committee is more suitable for MUNers with a lot of experience and seeking a challenging committee to participate in">Advanced Committee <i class="fas fa-info-circle"></i></h4>
-                            <?php endif; ?>
-
+                            <?php endif;?>
 
                             <div class="col-lg-2 col-lg-offset-5">
                                 <hr class="marginbot-50">
@@ -210,7 +209,7 @@
                                     <h4>Chairs</h4> <?php
                                     if (mysqli_num_rows($committees_chairs) != 0) {
                                         while ($chairs = mysqli_fetch_assoc($committees_chairs)) { ?>
-                                            <p><?php echo $chairs["firstname"]." ".$chairs["lastname"]; ?></p> <!-- <p><?php echo $chair2; ?></p> -->
+                                            <p><?php echo $chairs["firstname"]." ".$chairs["lastname"]; ?></p> <!-- <p><?php //echo $chair2; ?></p> -->
                                     <?php 
                                         } 
                                     }
@@ -344,7 +343,7 @@
                                                 <h3>
                                                 <?php 
                                                 echo $displayname; 
-                                                if ($abbvname != "legal" && $abbvname != "unwomen" && $abbvname != "arab" && $abbvname != "paris") {
+                                                if ($abbvname != "legal" && $abbvname != "unwomen" && $abbvname != "arab" && $abbvname != "paris" && $abbvname != "USsenate") {
                                                     echo " (" . strtoupper($abbvname) . ")";
                                                 }
                                                 ?> 
